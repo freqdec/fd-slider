@@ -1,0 +1,252 @@
+/*
+   Slider CSS, style as you please.
+*/
+
+/* The styles given to the form element in order to hide it */
+.fd-form-element-hidden
+        {
+        display:none;
+        } 
+/* The slider is given this class whenever the value has not been set by the user */
+.fd-slider-no-value .fd-slider-handle
+        {
+        opacity:.5;
+        }
+/* Horizontal Outer wrapper - all other DOM elements added as children to this top level wrapper */
+.fd-slider
+        {
+        /* By default, I've let horizontal sliders occupy 100% of the available width */
+        width:100%;
+        /* The height of the slider handle */
+        height:20px;
+        /* Set a 10 pixel bottom margin */
+        margin:0 0 10px 0;
+        }
+/* Vertical Outer wrapper - all other DOM elements added as children to this top level wrapper */
+.fd-slider-vertical
+        {       
+        /* The width of the slider handle */        
+        width:20px;
+        /* fill the available space */
+        height:100%; 
+        /* Set a 10 pixel right and bottom margin */      
+        margin:0 10px 10px 0; 
+        /* You may wish to float the sliders left */
+        /* float:left; */              
+        }
+/* Shared rules */
+.fd-slider,
+.fd-slider-vertical
+        {
+        text-align:center;
+        display:block;
+        position:relative;        
+        text-decoration:none;
+        border:0 none;
+        -moz-user-select:none;
+        -khtml-user-select:none;
+        -webkit-touch-callout:none; 
+        user-select:none;     
+        }
+.fd-slider-inner
+        {
+        /* Set this to display:none if not styling */
+        display:none;
+        }
+/* The inner track bar */
+.fd-slider-bar
+        {
+        position:absolute;
+        display:block;
+        z-index:2;
+        height:2px;
+        border:1px solid #bbb;
+        border-bottom:1px solid #aaa;
+        border-right:1px solid #aaa;
+        border:1px solid rgba(187, 187, 187, .8);
+        border-bottom:1px solid rgba(170, 170, 170, .8);
+        border-right:1px solid rgba(170, 170, 170, .8);
+        background:#ddd;
+        background:-webkit-gradient(linear, left top, left bottom, from(#ececec), to(#ccc));
+        background:-moz-linear-gradient(top,#ececec,#ccc);
+        margin:0;
+        padding:0;
+        overflow:hidden;
+        line-height:4px;
+        top:8px;
+        right:10px; 
+        left:10px;        
+        border-radius:2px;      
+        -moz-border-radius:2px; 
+        -webkit-border-radius:2px;           
+        }
+/* The animated range bar */
+.fd-slider-range
+        {
+        position:absolute;
+        display:block;
+        z-index:3;
+        height:2px;      
+        margin:0;
+        padding:0;
+        overflow:hidden;
+        line-height:2px;
+        top:9px;
+        left:11px;          	      
+        border-radius:2px;      
+        -moz-border-radius:2px;
+        -webkit-border-radius:2px;
+        background:#bfbfbf;          
+        background:-webkit-gradient(linear, left top, right top, from(#6cc), to(#3cf));
+        background:-moz-linear-gradient(left,#6cc,#3cf);                                      
+        }
+/* Styles for the vertical slider */
+.fd-slider-vertical .fd-slider-range
+        {
+        height:auto;
+        width:2px;
+        top:auto;        
+        right:auto;
+        bottom:11px;
+        left:9px;        
+        background:-webkit-gradient(linear, left top, left bottom, from(#3cf), to(#6cc));
+        background:-moz-linear-gradient(top,#3cf,#6cc);  
+        }     
+.fd-slider-vertical .fd-slider-bar
+        {         
+        width:2px;   
+        top:10px;
+        right:auto;
+        bottom:10px;
+        left:8px;        
+        height:auto;
+        background:#ddd;
+        background:-webkit-gradient(linear, left top, right top, from(#ececec), to(#ccc));
+        background:-moz-linear-gradient(left,#ececec,#ccc);
+        }
+.fd-slider-vertical .fd-slider-handle
+        {
+        cursor:N-resize;
+        }
+/* The drag handle */
+.fd-slider-handle
+        {
+        position:absolute;
+        display:block;
+        padding:0;
+        border:0 none;
+        margin:0;
+        z-index:3;
+        top:0;
+        left:0;
+        width:20px;
+        height:20px;
+        outline:0 none;
+        background:transparent url(../media/fd-slider-sprite.png) no-repeat 0px 0px;
+        cursor:W-resize;  
+        line-height:20px;
+        font-size:10px;       
+        -webkit-user-select: none;
+        -webkit-touch-callout:none;        
+        -moz-user-select:none;
+        -moz-user-focus:none; 
+        user-select:none;           
+        -moz-outline:0 none;               
+        }
+/* Focus styles */
+.fd-slider-handle:focus
+        {
+        outline:0 none;
+        border:0 none;
+        -moz-user-focus:normal;
+        }
+button.fd-slider-handle:focus::-moz-focus-inner { border-color: transparent; }
+/* Glowing slider handle when focused or when hovered */
+.fd-slider-focused .fd-slider-handle,
+.fd-slider-hover .fd-slider-handle
+        {
+        background:transparent url(../media/fd-slider-sprite.png) no-repeat 0 -20px;
+        }
+/* Drop shadow on the inner bar when focused */
+.fd-slider-focused .fd-slider-bar
+        {
+        -moz-box-shadow: 0 0 4px #aaf;
+        -webkit-box-shadow: 0 0 4px #aaf;
+        box-shadow: 0 0 4px #aaf;
+        } 
+/* Class given to body to change cursor when dragging */
+body.fd-slider-drag-vertical,
+body.fd-slider-drag-vertical *
+        {
+        /* Set the cursor to the correct resize cursor */
+        cursor:N-resize !important;
+        /* Stop text selection in FF & WebKit */
+        -moz-user-select:none;
+        -webkit-user-select:none;
+        /* CSS3 */
+        user-select:none;     
+        }
+body.fd-slider-drag-horizontal,
+body.fd-slider-drag-horizontal *
+        {
+        cursor:W-resize !important;
+        /* Stop text selection in FF & WebKit */
+        -moz-user-select:none;
+        -webkit-user-select:none;
+        /* CSS3 */
+        user-select:none;     
+        }   
+/* Disabled Sliders */  
+.fd-slider-disabled
+        {
+        /* Lower opacity - No IE6 or 7 though */
+        opacity:.8;
+        /* Remove the pointer */
+        cursor:default;
+        }
+/* change the handle image */
+.fd-slider-disabled .fd-slider-handle
+        {
+        /* Default cursor & black handle image */
+        cursor:default !important;
+        background:transparent url(../media/fd-slider-sprite.png) no-repeat 0 -40px;
+        }
+/* Make the track bar greyed out */
+.fd-slider-disabled .fd-slider-bar
+        {
+        /* Default cursor and black background */
+        cursor:auto !important;
+        border:1px solid #888;
+        border-bottom:1px solid #999;
+        border-right:1px solid #999;
+        border:1px solid rgba(136,136,136,.8);
+        border-bottom:1px solid rgba(153,153,153,.8);
+        border-right:1px solid rgba(153,153,153,.8);
+        background:#222;
+        background:-webkit-gradient(linear, left top, right top, from(#222), to(#000));
+        background:-moz-linear-gradient(left,#222,#000); 
+        }
+/* Vertical disabled track bar */
+.fd-slider-vertical.fd-slider-disabled .fd-slider-bar
+        {
+        cursor:auto !important;
+        background:#555;
+        background:-webkit-gradient(linear, left top, right bottom, from(#000), to(#222));
+        background:-moz-linear-gradient(top,#000,#222); 
+        }
+/* Disabled range bar */
+.fd-slider-disabled .fd-slider-range
+        {
+        cursor:auto !important;
+        background:#555;
+        background:-webkit-gradient(linear, left top, right top, from(#666), to(#333));
+        background:-moz-linear-gradient(left,#666,#333); 
+        }
+/* Vertical disabled range bar */
+.fd-slider-vertical.fd-slider-disabled .fd-slider-range
+        {
+        cursor:auto !important;
+        background:#555;
+        background:-webkit-gradient(linear, left top, right bottom, from(#666), to(#333));
+        background:-moz-linear-gradient(top,#666,#333); 
+        }

@@ -1,0 +1,138 @@
+/*
+Content-Type: multipart/related; boundary="_ANY_STRING_WILL_DO_AS_A_SEPARATOR"
+
+--_ANY_STRING_WILL_DO_AS_A_SEPARATOR
+Content-Location:blank
+Content-Transfer-Encoding:base64
+
+R0lGODlhFAAUAIAAAP///wAAACH5BAEAAAAALAAAAAAUABQAAAIRhI+py+0Po5y02ouz3rz7rxUAOw==
+--_ANY_STRING_WILL_DO_AS_A_SEPARATOR
+Content-Location:handlenovalue
+Content-Transfer-Encoding:base64
+
+iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAjVJREFUeNrMVE1PE0EYfmZ32a1ugXVrS0FsoKWKxBps4kFNOBnjybPR/8Nv8A+Y1K+DxgMeIMYLngiBxGyQKK1NWxq3VpGW7tc4O25C024rBw5MMpnknXmfeeZ9nncIpRSnOQSc8jj7gFJYkLCBZxs69IkclHNzkJUk37A6NXTau2jsb+NJvkFDBCC9MYYlRF9sZZLJ5L3rsdFsXoU0qxAhIhByREE//aF2odg0zP3aKh4vfmX53kCGnNlyIa7r+v278ejcnSiVNYnFQOF5FDI7shQl8oX0+MJTxxJ/LBdes5R6N9PeJ4uYTt+c1MczuuBKDRswLfDT/iTBPE8E8UEqll37ffVWBVhhIWcQoAx17AqxbbHYAsoE1KHoq5NEQFwIYiahLzDAtWGACgOc2GvbKLXgDZXTp0ojGs8BWoMAJVYsUjs6oUc8rw+j3zb18i9tekYdY2KMMJd6IZ0pMHY2wzqsVg7M//jQwe52FZdnp1SRYJQVy092vGNRpOCSAxfUKhq17vqFAXaw+sropNIp71ouoUkC0UaYMZlzRLbp+q9kmjdtStulHdP+8MbgOUMALay/L7Xjlza/O4/yyC1elAURkwoH9oFQ7Xi0svP5Z/nd883mystvPGdQp3Bj/1MtgRu3s1h6OI/5fAJTMyo/UNk7hLFRx8e3BrbWv/gV9xl2Gzu09bgfAd8SsWCNBNu+/k02zWC1eluPhH2wAVMxAFa6SuMENfOf6Z7oczhz/+FfAQYATvji+0cdRCAAAAAASUVORK5CYII==
+--_ANY_STRING_WILL_DO_AS_A_SEPARATOR--
+*/
+
+/* 
+   This file uses much from the MS book of dark arts. You may want to remove some of the gradient filters
+   and just use solid background colours instead if you feel the U.I. is sluggish.  
+*/
+
+/* The slider is given this class whenever the value has not been set by the user */
+.fd-slider-no-value .fd-slider-handle
+        {
+        background:transparent url(mhtml:http://www.frequency-decoder.com/demo/fd-slider/css/fd-slider-ie7.css!handlenovalue) repeat;
+        }
+.fd-slider,
+.fd-slider-vertical
+        {      
+        /* We have to set the slider background to have either a solid colour or a background image in order for the :hover
+           events to work in IE. Without a solid background colour or background image, the mouse pointer will never display
+           the "hand" state - which limits the "clickable" area of the slider be the dimensions of the inner "track bar"
+           that sits below the drag handle (the inner track bar has been given a background colour so :hover events work). 
+           
+           To counter this problem, I've set the background to be a 20px x 20px transparent .gif which has been base64
+           encoded at the top of this file (along with the three .png images used for the drag handle states).
+        */         
+        background:transparent url(mhtml:http://www.frequency-decoder.com/demo/fd-slider/css/fd-slider-ie7.css!blank) repeat;
+        }
+.fd-slider-handle
+        {
+        /* Nasty - using an expression to not draw focus outline on drag handle */
+        outline:expression(hideFocus='true');
+        }
+/* 
+   We have to use the inner div, not the trackbar, to simulate the glow effect "onfocus". 
+   God only knows why the Shadow filter destroys absolute positioning. I had to tweak the 
+   top, bottom, left & right values to get it right. Perhaps it's a combination 
+   of filter "strength" & lineheight (or something equally as bizarre) but I'm
+   not hanging around to find out. This seems to work so I'm using it - no questions asked.
+*/
+.fd-slider-inner
+        {
+        position:absolute;
+        display:none;
+        z-index:2;
+        height:2px;
+        border:1px solid #bbb;
+        border-bottom:1px solid #aaa;
+        border-right:1px solid #aaa;
+        background:#ddd;
+        margin:0;
+        padding:0;
+        overflow:hidden;
+        line-height:4px;
+        top:-1px;
+        bottom:none;
+        left:1px;
+        right:19px; 
+        filter:
+                progid:DXImageTransform.Microsoft.Shadow(color=#bbbbff,direction=0,strength=3),
+                progid:DXImageTransform.Microsoft.Shadow(color=#bbbbff,direction=45,strength=3),
+                progid:DXImageTransform.Microsoft.Shadow(color=#bbbbff,direction=90,strength=3),
+                progid:DXImageTransform.Microsoft.Shadow(color=#bbbbff,direction=135,strength=3),
+                progid:DXImageTransform.Microsoft.Shadow(color=#bbbbff,direction=180,strength=3),
+                progid:DXImageTransform.Microsoft.Shadow(color=#bbbbff,direction=225,strength=3),
+                progid:DXImageTransform.Microsoft.Shadow(color=#bbbbff,direction=270,strength=3),
+                progid:DXImageTransform.Microsoft.Shadow(color=#bbbbff,direction=315,strength=3);  
+        }
+/* We have to use the inner div, not the bar, to simulate the glow effect onfocus */
+.fd-slider-vertical .fd-slider-inner
+        {
+        position:absolute;
+        display:none;
+        z-index:2;        
+        border:1px solid #bbb;
+        border-bottom:1px solid #aaa;
+        border-right:1px solid #aaa;
+        background:#ddd;
+        margin:0;
+        padding:0;
+        overflow:hidden;              
+        width:2px;   
+        top:1px;
+        bottom:18px;
+        left:-1px;
+        right:auto;
+        height:auto;        
+        }
+/* Display the inner "glow" onfocus */
+.fd-slider-focused .fd-slider-inner
+        {
+        display:block;
+        }
+.fd-slider-bar
+        {  
+        /* Using the gradient filter for IE. Colour strings in AARRGGBB format */
+        filter:progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr='#ffececec',endColorstr='#ffcccccc');
+        }
+.fd-slider-vertical .fd-slider-bar
+        {  
+        filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ffececec',endColorstr='#ffcccccc');
+        }
+.fd-slider-range
+        {  
+        filter:progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr='#ff66cccc',endColorstr='#ff33ccff');
+        }
+.fd-slider-vertical .fd-slider-range
+        {  
+        filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ff66cccc',endColorstr='#ff33ccff');
+        }        
+/* Disabled slider styles */
+.fd-slider-disabled .fd-slider-bar
+        {
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr='#ff222222',endColorstr='#ff000000');
+        }
+.fd-slider-disabled .fd-slider-range
+        {
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr='#ff666666',endColorstr='#ff333333');
+        }
+.fd-slider-vertical.fd-slider-disabled .fd-slider-bar
+        {
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ff666666',endColorstr='#ff333333');
+        }
+.fd-slider-vertical.fd-slider-disabled .fd-slider-range
+        {
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ff666666',endColorstr='#ff333333');
+        }

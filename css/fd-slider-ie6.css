@@ -1,0 +1,182 @@
+/*
+Content-Type: multipart/related; boundary="_ANY_STRING_WILL_DO_AS_A_SEPARATOR"
+
+--_ANY_STRING_WILL_DO_AS_A_SEPARATOR
+Content-Location:handlenormal
+Content-Transfer-Encoding:base64
+
+iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAKeSURBVHjaYvz//z8DNQFAADExUBkABBDVDQQIIKobCBBALNgEGYGAYek5OQYhcW8Gdk5bBjZ2DbDEr583GH5+P8zw7uVWhmijR/+xRABAADGiiwHNYuZZdclaQkKiUEeY19aIm4FdkZ2RhYOJkfHHf4Z/J778/7ni4Yc9b1++mMgQZXAcqP8vsn6AAGLBcFnbCmUhIaESa1EeWyue/5wCLIzAYAGa9O8/AxsDA5MdDyOzoBK/+4w/v1jftK0oA2q5jexSgABC9zIbg4xSkKQQv5UQ01+2d78ZGN7+YvgHUg3CjFDMxcjE6iEnbL/vk3rkMwaGDqDQT5gBAAGEbiAXAzefA+Pv36wPvzEwPGFk+PfnPwNGOLEwMjD+ZWBiURYTcgMaOAnZQIAAQjeQB2ig6oPvvxkefWP4izc6GYEW/eeQButhYHgPEwYIIEwv//vH9OIHmE04C/0DhwYbshBAAGEmm1dPXgjIKAjzsTAysgKj4x8WY5mAAfn7HwPD1+fPXr9FkwMIIHQDfzHcuXyVQVZRi5uZkZEXaChI859/iEhhgVry+S/Dv18Pb9wA60ECAAGEbuAXhr1r9v2UUzL6p6mrKsDCxCjACjKUkYEZKAkK1H/AFPLh9///3x/devT7wMa9YD1IACCA0LPeN4bjO89937J04+PLF+4//PH337e////zMjMySAFTNogG8Z/duvb48Yal69/uWH0SrAcJAAQQSk4BJ2wGBl4gVmHQs7RjsPNzZtAwUmGQUhAGK3j24C3DjXN3GA5t2stw6fghoMgdIP6MnLABAghr1gNS3EAsBcQKUJoXKv0ZZCwQP4DSX9GzHkAAMWIrYKEuZQMndEg6Y4NHGiTMQN78ha1wAAggRmqX2AABRPXyECDAAK8q7HNsZWwXAAAAAElFTkSuQmCC==
+--_ANY_STRING_WILL_DO_AS_A_SEPARATOR
+Content-Location:handleglow
+Content-Transfer-Encoding:base64
+
+iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAPcSURBVHjaYvz//z8DGmBEohmR+DDwHwkzINFgABBALFgMYoKyWaBsZiQ5kOa/QPwPiP9A+f+QDQYIIBY0w5ihmBWI2aCYBSrGADUMZNAvKP4NFfsLNeM/QAAhu5AZqpkdiDmhmAvKh6kDGfYTiL8B8Xco/olkGQNAALFATYZ5DaSZ+9evX/zLn/9QW/2B0enuH2bDNwwsMiDFIgx/niiz/D0fKvB/X6Qkxy02NjYmtHD9BxBAjMBIYYQaxgHEPO/evRPufvbP8dwf9hghbg5tAy5GVnl2BiYORkbG7/8Z/p/+8v/3ibffLliz/VxaKc18UEhI6C1Q3xcg/gFyJUAAsSBFANvPnz+5Vj79onXyJ2+cqiC7jgUPI6sgCwMj0Gog/s/Aycjw35aXgU2QmdNo+/M/zEC1r5O4uc+ys7P/ggbHP4AAYkLyMtuLFy/4N3xgcGfk4NIUZv7P8vHPP8YHP/4zAPH/+xAMZP9j5Gb6z6ItxKO7/yuTD0gPNPLAZgEEEMyF4Ah5/vw5/4N/CkZy//8xP/vJyPDyN8P/fwygIEGkmn/AMAIq/v/7PwMTIzun2fPnt/nl5eVfw5IXQAAhJxvmN2/e8L4T0JBi/PGX8cVvxv/MjEwMwKD7j5x2QRnh7/9////+A5r4j1UYpAc5rQIEEHKyYfj69SsrA/8/ple//jEwMzMBDQQ5g4EROVmDXPgXhP8C1fz7A9GDBAACiAU5B/z+/fuPwNf3734JiPIKsTEysgIdCPQwI8xEUMSAc+p/Joaff/8zsH/8+AGkB5oGwd4ACCAWpOz0B+i9rxLvntx/KCAqxw4U5mMBeRsoCfU0JPYY//8Buu4jMHDFPzx/CNIDjWGwoQABxIKUH39xc3O/1bx/49gHXhG1P1JyUjyMDMyCrIwgbzOADf7HCDT8P+N7oHq2ty9eKb24eYxbWvAtNBuCzPgPEEBMUAPB+VNWVvad6p9PZxVvnzzw8+mDlw+///n75c/f/5zAsBQFpkcQ/eXPv//fXzx5w3vtxH7Zb29OgvRADQQXFgABhByGv5WVlT/du3fv7qdLl7Zyn37x6Z6MtsUZMUWZj3yifCBF/J9efxJ5df+J0pOrJ1QYvh9W0NO7C9IDLSTAYQgQQMhe/isgIPBDW1v7NTCgLzNcv/5J6NKuG8DcIwWMVB5w2mJk/ALMFc+A2e2upqbmQ6DatyA9SEXaf4AAYoQWsCjFFzBtsZ09e5bn6dOnfKDE/ufPHw6w7SwsPyQlJT9KS0t/MjY2/iIiIvILqfgC+xQggBiRSmyqFLAAAcSCVrQzICn4R04VABBgAIVgtDIhSVTgAAAAAElFTkSuQmCC==
+--_ANY_STRING_WILL_DO_AS_A_SEPARATOR
+Content-Location:handledisabled
+Content-Transfer-Encoding:base64
+
+iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJSSURBVHjaYvz//z8DNQFAADExUBkABBDVDQQIIKobCBBALNgEGYHA1dVVjp2d3ZuZmdkWiDVA4n///r0BxId//vy5dffu3Y/+Y4kAgABiRBcDmsXs4eFhJSQklCcqKmoLpNm4ubmZWVhYQAb+f/Pmza87d+7s+/DhwxSgoceB+v8i6wcIIBZ0l1lYWCjz8fEVSUpK2gAN5GBjY2MCamIEGgaS/w8UYwaKuV6+fJkVqPYVUOw2sksBAgjdyyDXBAENtAZqYgd6jen79+8gcWRvMAENYVNQULD7/ft3GJDfDcQ/YZIAAYRuIBcrK6sD0ELWz58/M3758uUftnQKNBBEsQoLCzsD6anIBgIEELqBPEADVYGGMQENI5TiQaYqgPQA8XuYIEAAYXgZ6CJs3sQKoK5nQxYDCCCMZAM07AU/P78Q0KWMUK/hNAzok1fo4gABhG7gr48fP14FGqgJTHuMoKQCMhQ5HGH8P3/+/AcaeA2kB9kAgABCN/DLkydP9vHy8hoBk40KMKYZgRjFILCtv34xANPhvUePHu0F6UE2ACCA0A389uLFi3OcnJwbgexgoKEKTExMjBwcHAygIAAmk/8/fvxgAKp5CEzcGx8+fHgGpAfZAIAAYkTzDijQeIFYBZgk7KSkpJwFBQVVuLi4hMG2ffv29v3793eePXu29+3bt4eAQneA+DNywgYIIKxZD0hxA7EUNFlIQS0Bgc9A/AyIH0Dpr+hZDyCAGHEkXEZocuCCpjNY0vgFDTOQN39hKxwAAoiR2iU2QABRvTwECDAAxcXwW8Zw7FoAAAAASUVORK5CYII==
+--_ANY_STRING_WILL_DO_AS_A_SEPARATOR
+Content-Location:blank
+Content-Transfer-Encoding:base64
+
+R0lGODlhFAAUAIAAAP///wAAACH5BAEAAAAALAAAAAAUABQAAAIRhI+py+0Po5y02ouz3rz7rxUAOw==
+--_ANY_STRING_WILL_DO_AS_A_SEPARATOR
+Content-Location:handlenovalue
+Content-Transfer-Encoding:base64
+
+iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAjVJREFUeNrMVE1PE0EYfmZ32a1ugXVrS0FsoKWKxBps4kFNOBnjybPR/8Nv8A+Y1K+DxgMeIMYLngiBxGyQKK1NWxq3VpGW7tc4O25C024rBw5MMpnknXmfeeZ9nncIpRSnOQSc8jj7gFJYkLCBZxs69IkclHNzkJUk37A6NXTau2jsb+NJvkFDBCC9MYYlRF9sZZLJ5L3rsdFsXoU0qxAhIhByREE//aF2odg0zP3aKh4vfmX53kCGnNlyIa7r+v278ejcnSiVNYnFQOF5FDI7shQl8oX0+MJTxxJ/LBdes5R6N9PeJ4uYTt+c1MczuuBKDRswLfDT/iTBPE8E8UEqll37ffVWBVhhIWcQoAx17AqxbbHYAsoE1KHoq5NEQFwIYiahLzDAtWGACgOc2GvbKLXgDZXTp0ojGs8BWoMAJVYsUjs6oUc8rw+j3zb18i9tekYdY2KMMJd6IZ0pMHY2wzqsVg7M//jQwe52FZdnp1SRYJQVy092vGNRpOCSAxfUKhq17vqFAXaw+sropNIp71ouoUkC0UaYMZlzRLbp+q9kmjdtStulHdP+8MbgOUMALay/L7Xjlza/O4/yyC1elAURkwoH9oFQ7Xi0svP5Z/nd883mystvPGdQp3Bj/1MtgRu3s1h6OI/5fAJTMyo/UNk7hLFRx8e3BrbWv/gV9xl2Gzu09bgfAd8SsWCNBNu+/k02zWC1eluPhH2wAVMxAFa6SuMENfOf6Z7oczhz/+FfAQYATvji+0cdRCAAAAAASUVORK5CYII==
+--_ANY_STRING_WILL_DO_AS_A_SEPARATOR--
+*/
+
+/* 
+   This file uses much from the MS book of dark arts. You may want to remove some of the gradient filters
+   and just use solid background colours instead if you feel the U.I. is sluggish. 
+*/
+
+/* The slider is given this class whenever the value has not been set by the user */
+.fd-slider-no-value .fd-slider-handle
+        {
+        filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='mhtml:http://www.frequency-decoder.com/demo/fd-slider/css/fd-slider-ie6.css!handlenovalue');
+        }           
+.fd-slider-handle
+        {
+        /* Remove the background image set within the main fd-slider.css file */
+        background:none;
+        /* 
+        
+        The .png images used for the drag handle states have been base64 encoded at the top of this file.
+        
+        Remember: Change the URL to the CSS file within the filter statements to suit your installation. 
+        
+        See: http://www.phpied.com/the-proper-mhtml-syntax/ for an overview of using MHTML         
+        
+        */
+        filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='mhtml:http://www.frequency-decoder.com/demo/fd-slider/css/fd-slider-ie6.css!handlenormal');
+                
+        /* Nasty - using an expression to not draw focus outline on drag handle */
+        outline:expression(hideFocus='true');
+        }
+.fd-slider-focused .fd-slider-handle,
+.fd-slider-hover   .fd-slider-handle
+        {
+        /* Remove the background image set within the main fd-slider.css file */
+        background:none;
+        /* Use the AlphaImageLoader filter to display the .png image that has been base64 encoded at the top of this file */ 
+        filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='mhtml:http://www.frequency-decoder.com/demo/fd-slider/css/fd-slider-ie6.css!handleglow');
+        }
+.fd-slider,
+.fd-slider-vertical
+        {        
+        /* We have to set the slider background to have either a solid colour or a background image in order for the :hover
+           events to work in IE. Without a solid background colour or background image, the mouse pointer will never display
+           the "hand" state - which limits the "clickable" area of the slider be the dimensions of the inner "track bar"
+           that sits below the drag handle (the inner track bar has been given a background colour so :hover events work). 
+           
+           To counter this problem, I've set the background to be a 20px x 20px transparent .gif which has been base64
+           encoded at the top of this file (along with the three .png images used for the drag handle states).
+        */             
+        background:transparent url(mhtml:http://www.frequency-decoder.com/demo/fd-slider/css/fd-slider-ie6.css!blank) repeat;
+        }
+.fd-slider-bar
+        {  
+        left:10px;
+        right:auto;
+        /* IE6 does not recognise absolute positioning on four sides (top, left, right, bottom) so we use an expression
+           to dynamically calculate the track bar size. Yes, it is horrible - you don't need to remind me. */  
+        width:expression((this.parentNode.offsetWidth - 20) + "px");
+        /* Using the gradient filter for IE. Colour strings in AARRGGBB format */
+        filter:progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr='#ffececec',endColorstr='#ffcccccc');
+        }
+.fd-slider-vertical .fd-slider-bar
+        {  
+        top:10px;
+        bottom:auto;
+        left:8px;        
+        /* Again, we use an expression to calculate the vertical track bar size */
+        height:expression((this.parentNode.offsetHeight - 20) + "px");
+        /* Using the gradient filter for IE. Colour strings in AARRGGBB format */
+        filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ffececec',endColorstr='#ffcccccc');
+        }
+.fd-slider-range
+        { 
+        left:10px;        
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr='#ff66cccc',endColorstr='#ff33ccff');
+        }
+.fd-slider-vertical .fd-slider-range
+        {  
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ff66cccc',endColorstr='#ff33ccff');
+        }
+/* 
+   We have to use the inner div, not the trackbar, to simulate the glow effect "onfocus". 
+   God only knows why the Shadow filter destroys absolute positioning. I had to tweak the 
+   top, bottom, left & right values to get it right. Perhaps it's a combination 
+   of filter "strength" & lineheight (or something equally as bizarre) but I'm
+   not hanging around to find out. This seems to work so I'm using it - no questions asked.
+*/
+.fd-slider-inner
+        {
+        position:absolute;
+        display:none;
+        z-index:2;
+        height:2px;
+        border:1px solid #bbb;
+        border-bottom:1px solid #aaa;
+        border-right:1px solid #aaa;
+        background:#ddd;
+        margin:0;
+        padding:0;
+        overflow:hidden;
+        line-height:4px;
+        top:-1px;
+        bottom:none;
+        left:1px;
+        right:19px; 
+        filter:
+                progid:DXImageTransform.Microsoft.Shadow(color=#bbbbff,direction=0,strength=3),
+                progid:DXImageTransform.Microsoft.Shadow(color=#bbbbff,direction=45,strength=3),
+                progid:DXImageTransform.Microsoft.Shadow(color=#bbbbff,direction=90,strength=3),
+                progid:DXImageTransform.Microsoft.Shadow(color=#bbbbff,direction=135,strength=3),
+                progid:DXImageTransform.Microsoft.Shadow(color=#bbbbff,direction=180,strength=3),
+                progid:DXImageTransform.Microsoft.Shadow(color=#bbbbff,direction=225,strength=3),
+                progid:DXImageTransform.Microsoft.Shadow(color=#bbbbff,direction=270,strength=3),
+                progid:DXImageTransform.Microsoft.Shadow(color=#bbbbff,direction=315,strength=3);  
+        }
+/* We have to use the inner div, not the bar, to simulate the glow effect onfocus */
+.fd-slider-vertical .fd-slider-inner
+        {
+        position:absolute;
+        display:none;
+        z-index:2;        
+        border:1px solid #bbb;
+        border-bottom:1px solid #aaa;
+        border-right:1px solid #aaa;
+        background:#ddd;
+        margin:0;
+        padding:0;
+        overflow:hidden;              
+        width:2px;   
+        top:1px;
+        bottom:18px;
+        left:-1px;
+        right:auto;
+        height:auto;        
+        } 
+.fd-slider-focused .fd-slider-inner
+        {        
+        display:block;
+        }       
+/* Disabled slider styles */
+.fd-slider-disabled .fd-slider-handle
+        {
+        background:none;
+        filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='mhtml:http://www.frequency-decoder.com/demo/fd-slider/css/fd-slider-ie6.css!handledisabled');
+        }
+.fd-slider-disabled .fd-slider-bar
+        {
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ff222222',endColorstr='#ff000000');
+        }
+.fd-slider-disabled .fd-slider-range
+        {
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ff666666',endColorstr='#ff333333');
+        }
