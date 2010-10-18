@@ -9,3 +9,5 @@ At a glance:
 * Unobtrusive & namespace friendly
 * Conforms to the WAI-ARIA defined role of “slider”
 * Keyboard accessible
+
+Demo: "http://www.frequency-decoder.com/demo/fd-slider/"
