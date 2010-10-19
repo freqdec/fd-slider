@@ -1,5 +1,4 @@
 /* Generic CSS used for the slider demo */
-
 body
         {
         background:#fff;
@@ -40,7 +39,7 @@ h3
         font-family:georgia, times new roman, times, serif;
         text-align:center;
         margin:1em 0;
-        color:#333;
+        color:#868686;
         font-style:oblique;
         font-size:1.2em;
         }
@@ -57,8 +56,7 @@ kbd
 	min-width:1em;
 	padding:.2em .3em .3em .3em;
 	font: bold .85em/1em "Lucida Grande", Lucida, Arial, sans-serif;
-	text-align: center;     	
-	color:#222;
+	text-align: center;   		
 	text-decoration: none;
 	-moz-border-radius: .3em;
 	-webkit-border-radius: .3em;
@@ -67,10 +65,11 @@ kbd
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	user-select: none;
-        background: rgb(80, 80, 80);
+        background: rgb(230, 230, 230);
 	background: -moz-linear-gradient(top, rgb(230,230,230), rgb(245,245,245));
 	background: -webkit-gradient(linear, left top, left bottom, from(rgb(230,230,230)), to(rgb(245,245,245)));
-	color: rgb(80,80,80);
+	color:#222;
+        color: rgb(80,80,80);
 	text-shadow: 0 1px 0 rgb(255,255,255);
 	border:1px solid #ccc;
 	border-right:1px solid #aaa;
@@ -138,16 +137,8 @@ input
         border:1px solid #ccc;
         border-top:1px solid #888;
         border-left:1px solid #888;
-        width:2em;
-        margin-left:0.2em;
-        }
-input[type="range"]
-        {
-        width:100%;
-        }
-input
-        {
         width:4em;
+        margin-left:0.2em;
         }
 label
         {
