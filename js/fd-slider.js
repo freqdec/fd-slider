@@ -173,8 +173,9 @@ var fdSlider = (function() {
                         options.scale     = options.scale || false;
                 };
                 
-                options.maxStep   = options.maxStep && String(options.maxStep).search(stepRegExp) != -1 ? +options.maxStep : +options.step * 2;
-
+                options.maxStep    = options.maxStep && String(options.maxStep).search(stepRegExp) != -1 ? +options.maxStep : +options.step * 2;
+                options.classNames = options.classNames || "";
+                
                 destroySingleSlider(options.inp.id);
                 sliders[options.inp.id] = new fdRange(options);
                 return true;
@@ -216,8 +217,7 @@ var fdSlider = (function() {
                                 // Basic option Object        
                                 options = {
                                         inp:            inp,                                                               
-                                        callbacks:      [],
-                                        classNames:     "",
+                                        callbacks:      [],                                         
                                         animation:      html5Animation,                                        
                                         vertical:       !!getAttribute(inp, "data-fd-slider-vertical"),
                                         classNames:     getAttribute(inp, "data-fd-slider-vertical"),
@@ -256,12 +256,28 @@ var fdSlider = (function() {
         var resize = function(e) {
                 for(slider in sliders) { sliders[slider].onResize(); };        
         };                 
-        var onDomReady = function() {
-                removeOnLoadEvent();
+        var onDomReady = function() {                  
+                /*@cc_on@*/
+                /*@if(@_win32)                 
+                removeEvent(window, "load", wonload);
                 init();
-        };
+                addEvent(window, "resize", resize);
+                addEvent(window, "load", function() {setTimeout(function() { for(slider in sliders) { sliders[slider].ieCheckValue(); }}, 200);});
+                @else @*/
+                removeEvent(window, "load",   init);
+                init();
+                /*@end
+                @*/                
+        };    
         var removeOnLoadEvent = function() {
-                removeEvent(window, "load", init);
+                /*@cc_on@*/
+                /*@if(@_win32)                 
+                removeEvent(window, "load", wonload); 
+                addEvent(window, "resize", resize);                
+                @else @*/
+                removeEvent(window, "load",   init);                 
+                /*@end
+                @*/ 
         };              
         function fdRange(options) {
                 var inp         = options.inp,
@@ -896,11 +912,11 @@ var fdSlider = (function() {
                         for(var s in scale) {
                                 if(!scale.hasOwnProperty(s)) {
                                         continue;
-                                }
+                                };
                                 
                                 if(value >= fr && value <= +scale[s]){
                                         pct = st + (value - fr) * (+s - st) / (+scale[s] - fr);
-                                }
+                                };
 
                                 st = +s; 
                                 fr = +scale[s];
@@ -982,7 +998,7 @@ var fdSlider = (function() {
                 };
                 
                 function findLabel() {
-                        var label,
+                        var label = false,
                             labelList = document.getElementsByTagName('label');
                         // loop through label array attempting to match each 'for' attribute to the id of the current element
                         for(var i = 0, lbl; lbl = labelList[i]; i++) {
@@ -1014,7 +1030,9 @@ var fdSlider = (function() {
                 
                 (function() {                         
                         addEvent(inp, 'change', onInputChange);                         
-                        if(hideInput || html5Shim) { addClass(inp, "fd-form-element-hidden"); };
+                        if(html5Shim || hideInput) { 
+                                addClass(inp, "fd-form-element-hidden"); 
+                        };
                         
                         // Add stepUp & stepDown methods to input element if using the html5Shim
                         if(html5Shim) {
@@ -1022,7 +1040,7 @@ var fdSlider = (function() {
                                 inp.stepDown = function(n) { increment(n||-1); };
                         };
                         
-                        outerWrapper              = document.createElement('div');
+                        outerWrapper              = document.createElement('span');
                         outerWrapper.className    = "fd-slider" + (vertical ? "-vertical " : " ") + (!html5Shim ? " fd-slider-no-value " : "") + classNames;
                         outerWrapper.id           = "fd-slider-" + inp.id;
 
@@ -1088,7 +1106,7 @@ var fdSlider = (function() {
                         
                         // Are there page instructions 
                         if(document.getElementById(describedBy)) {                                  
-                                handle.setAttribute("aria-describedby", describedBy);  // aaa:describedby
+                                handle.setAttribute("aria-describedby", describedBy);  
                         };                                               
                         
                         // Is the form element initially disabled
@@ -1096,21 +1114,14 @@ var fdSlider = (function() {
                                 disableSlider(true);
                         } else {                                  
                                 enableSlider(true);
-                        };
+                        };                            
                         
-                        /*@cc_on
-                        /*@if(@_win32)                        
-                        callback("create");    
-                        return;                             
-                        @else @*/
                         // Does an initial form element value mean the user has set a valid value?                         
-                        if(varSetRules.onvalue) {
-                                userSet = true;
+                        if(varSetRules.onvalue) {                                   
+                                userSet = true;                                  
                                 checkValue(tagName == "input" ? parseFloat(inp.value) : inp.selectedIndex);
                         };
-                        /*@end
-                        @*/                               
-                                                           
+                                                        
                         updateAriaValues();                        
                         callback("create");                            
                         redraw();                                                                                  
@@ -1128,21 +1139,18 @@ var fdSlider = (function() {
                         setRange:       function(mi, mx) { setSliderRange(mi, mx); },
                         getValueSet:    function() { return !!userSet; },
                         setValueSet:    function(tf) { valueSet(tf); },
-                        ieCheckValue:   function() { if(varSetRules.onvalue) { userSet = true; checkValue(tagName == "input" ? parseFloat(inp.value) : inp.selectedIndex); redraw(); }; }
+                        ieCheckValue:   function() { if(varSetRules.onvalue) { userSet = true; checkValue(tagName == "input" ? parseFloat(inp.value) : inp.selectedIndex); updateAriaValues(); redraw(); }; }
                 };
         }; 
-           
-        
-        // IE requires a 200 millisecond pause before attempting to grab form element values
         
         /*@cc_on@*/
         /*@if(@_win32)
-        var onload = function(e) {
+        var wonload = function(e) {                
                 init();
-                for(slider in sliders) { sliders[slider].ieCheckValue(); }
+                setTimeout(function() { for(slider in sliders) { sliders[slider].ieCheckValue(); }}, 200);
                 addEvent(window, "resize", resize);
         };                   
-        addEvent(window, "load", function() { setTimeout(onload, 200); });
+        addEvent(window, "load", wonload);
         @else @*/
         addEvent(window, "load",   init);
         addEvent(window, "resize", resize);
