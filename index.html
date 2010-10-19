@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
         <meta charset="utf-8" />
-        <title>frequency decoder - accessible, unobtrusive slider demo</title>       
+        <title>frequency decoder - accessible, unobtrusive slider/HTML5 polyfill script demo</title>       
         <meta name="author"                     content="frequency decoder" />
         <meta name="description"                content="An unobtrusive javascript that turns any text input or selectlist into a keyboard-accessible slider control" />
         <meta http-equiv="imagetoolbar"         content="no" />
-
         <!--[if IE]><![endif]-->
         <link rel="stylesheet" type="text/css" media="screen, projection" href="./css/fd-slider.css" />
         <link rel="stylesheet" type="text/css" media="screen, projection" href="./css/demo.css" />   
@@ -24,16 +23,15 @@
 <body>
 <div id="article-wrapper">
   <form action="" method="post">
-    <h1>Accessible Unobtrusive &#8220;Slider/HTML5 range polyfill&#8221; Demo</h1>
+    <h1>Accessible, Unobtrusive &#8220;Slider/HTML5 range polyfill&#8221; Demo</h1>
     <h2>Keyboard Controls</h2>
-
     <!-- The following paragraph is used to set the ARIA describedby property -->
-    <p id="fd-slider-describedby">Whenever a slider has focus, the keys <kbd title="Left arrow key">&larr;</kbd>, <kbd title="Right arrow key">&rarr;</kbd>, <kbd title="Up arrow key">&uarr;</kbd>, <kbd title="Down arrow key">&darr;</kbd>, <kbd title="Insert key">Ins</kbd> and <kbd title="Delete key">Del</kbd> can be used to control the slider handle (pressing either the <kbd>Page up</kbd> or <kbd>Page down</kbd> keys or <kbd title="CTRL key">CTRL</kbd> and an arrow key will move the handle by two steps at a time), the <kbd title="Home key">Home</kbd> key to set the slider at it&#8217;s minimum value and the <kbd title="End key">End</kbd> key to set the slider at it&#8217;s maximum value.</p>
-    
-    <h2>Quick demos (&#8220;View Source&#8221; is your friend)</h2>
+    <p id="fd-slider-describedby">Whenever a slider has focus, the keys <kbd title="Left arrow key">&larr;</kbd>, <kbd title="Right arrow key">&rarr;</kbd>, <kbd title="Up arrow key">&uarr;</kbd>, <kbd title="Down arrow key">&darr;</kbd>, <kbd title="Insert key">Ins</kbd> and <kbd title="Delete key">Del</kbd> can be used to control the slider handle (pressing either the <kbd>Page up</kbd> or <kbd>Page down</kbd> keys or <kbd title="CTRL key">CTRL</kbd> and an arrow key will move the handle by two steps at a time), the <kbd title="Home key">Home</kbd> key to set the slider at it&#8217;s minimum value and the <kbd title="End key">End</kbd> key to set the slider at it&#8217;s maximum value.</p>   
+    <h2>Mixed Demos</h2>
+    <h3>&#8230;as usual, &#8220;View Source&#8221; is your friend</h3>
     <fieldset>            
       <legend>HTML5 input type="range" polyfill tests</legend>
-      <p>When the <code>window.onload</code> event fires, the following input elements will be automatically converted into sliders <em>only</em> if the browser does not recognise the HTML5 &#8220;range&#8221; state.</p>    
+      <p>When the <code>window.onload</code> event fires, the following input elements will be automatically converted into sliders <em>only</em> if the browser does not recognise the HTML5 input &#8220;range&#8221; state.</p>    
       <!--
       
       Sliders #1, #2 & #3 created automatically by the script on page load only if the browser does not support type="range".
