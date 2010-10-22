@@ -19,7 +19,7 @@ yepnope([
     // If ranges are not supported, load the slider script and CSS dependencies
     nope: [      
      // Javascript file for slider before all else
-     'http://www.frequency-decoder.com/demo/fd-slider/js/fd-slider-dev.js'
+     'http://www.frequency-decoder.com/demo/fd-slider/js/fd-slider.js'
 /*@cc_on 
 @if (@_jscript_version == 5.8)  
      ,'css!http://www.frequency-decoder.com/demo/fd-slider/css/fd-slider-ie8.css'
@@ -32,7 +32,7 @@ yepnope([
      ,'css!http://www.frequency-decoder.com/demo/fd-slider/css/fd-slider.css'      
     ],
     callback: function(id, testResult) {
-        if(id.search(/fd-slider-dev.js$/) != -1) {
+        if(id.search(/fd-slider.js$/) != -1) {
                 fdSlider.onDomReady();
         };
     }
