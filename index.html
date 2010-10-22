@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
         <title>frequency decoder - accessible, unobtrusive slider/HTML5 polyfill script demo</title>       
         <meta name="author"                     content="frequency decoder" />
-        <meta name="description"                content="An unobtrusive javascript that turns any text input or selectlist into a keyboard-accessible slider control" />
+        <meta name="description"                content="An accessible, unobtrusive Slider/HTML5 Input Range polyfill script" />
         <meta http-equiv="imagetoolbar"         content="no" />
         <!--[if IE]><![endif]-->
         <link rel="stylesheet" type="text/css" media="screen, projection" href="./css/fd-slider.css" />
@@ -27,7 +27,7 @@
     <h2>Keyboard Controls</h2>
     <!-- The following paragraph is used to set the ARIA describedby property -->
     <p id="fd-slider-describedby">Whenever a slider has focus, the keys <kbd title="Left arrow key">&larr;</kbd>, <kbd title="Right arrow key">&rarr;</kbd>, <kbd title="Up arrow key">&uarr;</kbd>, <kbd title="Down arrow key">&darr;</kbd>, <kbd title="Insert key">Ins</kbd> and <kbd title="Delete key">Del</kbd> can be used to control the slider handle (pressing either the <kbd>Page up</kbd> or <kbd>Page down</kbd> keys or <kbd title="CTRL key">CTRL</kbd> and an arrow key will move the handle by two steps at a time), the <kbd title="Home key">Home</kbd> key to set the slider at it&#8217;s minimum value and the <kbd title="End key">End</kbd> key to set the slider at it&#8217;s maximum value.</p>   
-    <h2>Mixed Demos</h2>
+    <h2>Mixed HTML5 Polyfill &amp; Javascript API Creation Demos</h2>
     <h3>&#8230;as usual, &#8220;View Source&#8221; is your friend</h3>
     <fieldset>            
       <legend>HTML5 input type="range" polyfill tests</legend>
@@ -62,7 +62,7 @@
       
       Slider #3: The input element has been given the "data-fd-slider-vertical" custom data- attribute which makes the script create 
       a vertical slider. Additionally, the value of this attribute is given to the slider as a classname - in this case, the class "v-s" 
-      which makes the slider inherit a height of 300px). 
+      which makes the slider inherit a height of 300px. 
       
       -->
       <label for="html5shim-3">Range: 100 to 0 in steps of 1</label>
@@ -141,7 +141,7 @@
         inp:document.getElementById("inputTest6"),
         // Declare a step
         step:0.2, 
-        // Declare a maxStep (for keyboard users)
+        // Declare a maxStep
         maxStep:0.4,
         // Min value
         min:5,
@@ -178,7 +178,7 @@
         hideInput:false,
         // Create a vertical slider
         vertical:true,
-        // Give it the className "v-s2" which will make the slider 160px in height (class defined at top of page)
+        // Give it the className "v-s2" which will make the slider 160px in height
         classNames:"v-s2"
         });
       </script>         
