@@ -48,6 +48,7 @@ code
         font-family:'andale mono', 'lucida console', 'courier new', monospace;
         font-size:12px;
         color:#222;
+        text-transform:none;
         }
 kbd
         {
@@ -124,6 +125,7 @@ fieldset:last-of-type
 legend
         {
         font-size:16px;
+        margin-bottom:1em\9;
         }
 form
         {
