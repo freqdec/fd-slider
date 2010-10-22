@@ -10,4 +10,8 @@ At a glance:
 * Conforms to the WAI-ARIA defined role of “slider”
 * Keyboard accessible
 
-Demo: "http://www.frequency-decoder.com/demo/fd-slider/":http://www.frequency-decoder.com/demo/fd-slider/
+Current Demos: 
+
+* "Mixed HTML5 polyfill and Javascript API demo":http://www.frequency-decoder.com/demo/fd-slider/
+* "Using yesnope and Modernizr to load dependencies":http://www.frequency-decoder.com/demo/fd-slider/yesnope/
+
