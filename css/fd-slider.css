@@ -1,5 +1,7 @@
 /*
-   Slider CSS, style as you please.
+   Slider CSS, style as you please. There is one accompanying image sprite that can be found in the 
+   /media/ directory. This is used fo all browsers but IE6 (who uses base64 encoded verions of the
+   pngs).   
 */
 
 /* The styles given to the form element in order to hide it */
@@ -7,14 +9,16 @@
         {
         display:none;
         } 
-/* The slider is given this class whenever the value has not been set by the user */
+/* The slider is given this class whenever the value has not been set by the user.
+   It won't work in IE though so the IE specific stylesheets use a semi-transparent
+   handle image instead of changing the CSS opacity */
 .fd-slider-no-value .fd-slider-handle
         {
         opacity:.5;
         }
 /* Horizontal Outer wrapper - all other DOM elements added as children to this top level wrapper */
 .fd-slider
-        {
+        {                     
         /* By default, I've let horizontal sliders occupy 100% of the available width */
         width:100%;
         /* The height of the slider handle */
@@ -39,7 +43,9 @@
 .fd-slider-vertical
         {
         text-align:center;
+        /* display:block required as the wrapper element is a span */
         display:block;
+        /*This lets us absolutely position the drag handle */
         position:relative;        
         text-decoration:none;
         border:0 none;
