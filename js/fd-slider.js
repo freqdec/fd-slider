@@ -1,5 +1,5 @@
 /*
- * Unobtrusive Slider Control v3
+ * Unobtrusive Slider Control 
  * http://www.frequency-decoder.com/
  *
  * Copyright 2010, Brian McAllister
@@ -36,7 +36,7 @@ var fdSlider = (function() {
                                         'return (' , str.replace(/<\!--.+-->/gim,'').replace(/\bfunction\b/g,'function­') , ');'].join(''));
                                 return f();                          
                         };
-                } catch (e) { };               
+                } catch (e) { };                              
                 
                 return {"err":"Could not parse the JSON object"};                                            
         };
@@ -119,18 +119,10 @@ var fdSlider = (function() {
                 e.className += ( e.className ? " " : "" ) + c;
         };
         
-        /*@cc_on
-        /*@if (@_win32)
-        var removeClass = function(e,c) {
-                e.className = !c ? "" : e.className.replace(new RegExp("(^|\\s)" + c + "(\\s|$)"), " ").replace(/^\s*((?:[\S\s]*\S)?)\s*$/, '$1');
-        };
-        @else @*/
         var removeClass = function(e,c) {
                 e.className = !c ? "" : e.className.replace(new RegExp("(^|\\s)" + c + "(\\s|$)"), " ").replace(/^\s\s*/, '').replace(/\s\s*$/, '');
         };
-        /*@end
-        @*/ 
-        
+       
         // Returns an Object of key value pairs indicating which sliders have values
         // that have been "set/chosen" by the user
         var getValueSet = function() {
@@ -188,8 +180,8 @@ var fdSlider = (function() {
         // HTML5 input type="range" shim - called onload or onDomReady
         var init = function() {
                 var inputs = document.getElementsByTagName("input"),
-                    options;
-
+                    options;    
+                    
                 for(var i = 0, inp; inp = inputs[i]; i++) {                         
                                              
                         if(inp.tagName.toLowerCase() == "input" 
@@ -210,7 +202,7 @@ var fdSlider = (function() {
                                 } else if(inp.id && !document.getElementById("fd-slider-"+inp.id)) {
                                         destroySingleSlider(inp.id);
                                 };
-                                   
+                                
                                 // Create an id for the form element if necessary
                                 if(!inp.id) { inp.id = "fd-slider-form-elem-" + uniqueid++; };                      
                                                                 
@@ -255,29 +247,14 @@ var fdSlider = (function() {
         };                  
         var resize = function(e) {
                 for(slider in sliders) { sliders[slider].onResize(); };        
-        };                 
-        var onDomReady = function() {                  
-                /*@cc_on@*/
-                /*@if(@_win32)                 
-                removeEvent(window, "load", wonload);
-                init();
-                addEvent(window, "resize", resize);
-                addEvent(window, "load", function() {setTimeout(function() { for(slider in sliders) { sliders[slider].ieCheckValue(); }}, 200);});
-                @else @*/
+        };    
+        // HTML5 polyfill use only          
+        var onDomReady = function() {
                 removeEvent(window, "load",   init);
                 init();
-                /*@end
-                @*/                
         };    
-        var removeOnLoadEvent = function() {
-                /*@cc_on@*/
-                /*@if(@_win32)                 
-                removeEvent(window, "load", wonload); 
-                addEvent(window, "resize", resize);                
-                @else @*/
+        var removeOnLoadEvent = function() {                      
                 removeEvent(window, "load",   init);                 
-                /*@end
-                @*/ 
         };              
         function fdRange(options) {
                 var inp         = options.inp,
@@ -457,7 +434,7 @@ var fdSlider = (function() {
                
                 // Calls a callback function
                 function callback(type) {                         
-                        var cbObj = {"disabled":disabled, "elem":inp, "value":tagName == "select" ? inp.options[inp.selectedIndex].value : inp.value};
+                        var cbObj = {"disabled":disabled, "userSet":userSet, "elem":inp, "value":tagName == "select" ? inp.options[inp.selectedIndex].value : inp.value};
                         if(type in callbacks) {                                 
                                 if(callbacks.hasOwnProperty(type)) {                                    
                                         // Call all functions in sequence 
@@ -850,7 +827,7 @@ var fdSlider = (function() {
                 
                 // Calculates value accoriding to pixel position of slider handle
                 function pixelsToValue(px) {                                                                     
-                        handle.style[vertical ? "top" : "left"] = px + "px";
+                        handle.style[vertical ? "top" : "left"] = (px || 0) + "px";
                         redrawRange();                 
                         var val = getValidValue(scale ? percentToValue(pixelsToPercent(px)) : vertical ? max - (Math.round(px / stepPx) * step) : min + (Math.round(px / stepPx) * step));                                                                                                                                                                         
                         
@@ -890,7 +867,7 @@ var fdSlider = (function() {
                         for(var s in scale) {                                 
     	                        if(!scale.hasOwnProperty(s)) {
                                         continue;
-                                }
+                                };
                                 
                                 if(pct >= st && pct <= +s ) {
                                         value = fr + ((pct - st) * (+scale[s] - fr) ) / (+s - st);
@@ -1031,7 +1008,7 @@ var fdSlider = (function() {
                 (function() {                         
                         addEvent(inp, 'change', onInputChange);                         
                         if(html5Shim || hideInput) { 
-                                addClass(inp, "fd-form-element-hidden"); 
+                                addClass(inp, "fd-form-element-hidden");                                
                         };
                         
                         // Add stepUp & stepDown methods to input element if using the html5Shim
@@ -1043,7 +1020,7 @@ var fdSlider = (function() {
                         outerWrapper              = document.createElement('span');
                         outerWrapper.className    = "fd-slider" + (vertical ? "-vertical " : " ") + (!html5Shim ? " fd-slider-no-value " : "") + classNames;
                         outerWrapper.id           = "fd-slider-" + inp.id;
-
+                        
                         wrapper                   = document.createElement('span');
                         wrapper.className         = "fd-slider-inner";
 
@@ -1059,8 +1036,8 @@ var fdSlider = (function() {
                                 handle            = document.createElement('span');                                
                                 handle.tabIndex = 0;
                         } else {
-                                handle            = document.createElement('button');                                 
-                                handle.setAttribute("type", "button");
+                                handle            = document.createElement('a');                                 
+                                handle.setAttribute("href", "#");
                         };
                         
                         handle.className          = "fd-slider-handle";                        
@@ -1116,7 +1093,8 @@ var fdSlider = (function() {
                                 enableSlider(true);
                         };                            
                         
-                        // Does an initial form element value mean the user has set a valid value?                         
+                        // Does an initial form element value mean the user has set a valid value?
+                        // Note: This only works onload on IE                         
                         if(varSetRules.onvalue) {                                   
                                 userSet = true;                                  
                                 checkValue(tagName == "input" ? parseFloat(inp.value) : inp.selectedIndex);
@@ -1142,21 +1120,9 @@ var fdSlider = (function() {
                         ieCheckValue:   function() { if(varSetRules.onvalue) { userSet = true; checkValue(tagName == "input" ? parseFloat(inp.value) : inp.selectedIndex); updateAriaValues(); redraw(); }; }
                 };
         }; 
-        
-        /*@cc_on@*/
-        /*@if(@_win32)
-        var wonload = function(e) {                
-                init();
-                setTimeout(function() { for(slider in sliders) { sliders[slider].ieCheckValue(); }}, 200);
-                addEvent(window, "resize", resize);
-        };                   
-        addEvent(window, "load", wonload);
-        @else @*/
+               
         addEvent(window, "load",   init);
-        addEvent(window, "resize", resize);
-        /*@end
-        @*/
-        
+        addEvent(window, "resize", resize);        
         addEvent(window, "unload", unload);
         
         // Have we been passed JSON within the including script tag
