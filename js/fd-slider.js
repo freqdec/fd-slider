@@ -167,6 +167,7 @@ var fdSlider = (function() {
                 
                 options.maxStep    = options.maxStep && String(options.maxStep).search(stepRegExp) != -1 ? +options.maxStep : +options.step * 2;
                 options.classNames = options.classNames || "";
+                options.callbacks  = options.callbacks || false;
                 
                 destroySingleSlider(options.inp.id);
                 sliders[options.inp.id] = new fdRange(options);
@@ -433,10 +434,10 @@ var fdSlider = (function() {
                 };
                
                 // Calls a callback function
-                function callback(type) {                         
+                function callback(type) {                                              
                         var cbObj = {"disabled":disabled, "userSet":userSet, "elem":inp, "value":tagName == "select" ? inp.options[inp.selectedIndex].value : inp.value};
-                        if(type in callbacks) {                                 
-                                if(callbacks.hasOwnProperty(type)) {                                    
+                        if(type in callbacks) {                                                                             
+                                if(callbacks.hasOwnProperty(type)) {                                                                                  
                                         // Call all functions in sequence 
                                         for(var i = 0, func; func = callbacks[type][i]; i++) {
                                                 func(cbObj);
@@ -911,7 +912,9 @@ var fdSlider = (function() {
                 };
                 
                 // Sets the form element with a valid value
-                function setInputValue(val) {                                                                            
+                function setInputValue(val) {
+                        callback("update");
+                                                                                                    
                         // If the user has not set this value or has entered an incorrect value then set a class
                         // to enable styling of the slider
                         if(!userSet) {                                
