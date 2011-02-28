@@ -183,12 +183,21 @@ a:active code
         -moz-border-radius:8px;
         border-radius:8px;
         }
+input[type="range"]
+        {
+        width:100%;
+        }
+#html5shim-2-out
+        {
+        font-weight:normal;
+        font-style:italic;
+        }
 /* The following classes are given to the vertical sliders to set their height */        
-.v-s
+span.v-s
         {
         height:300px;
         }
-.v-s2
+span.v-s2
         {
         height:160px;
         }
