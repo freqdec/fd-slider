@@ -19,7 +19,7 @@
 /* Horizontal Outer wrapper - all other DOM elements added as children to this top level wrapper */
 .fd-slider
         {                     
-        width:auto;
+        width:100%;
         /* The height of the slider handle */
         height:20px;
         /* Set a 10 pixel bottom margin */
@@ -81,7 +81,8 @@
         line-height:4px;
         top:8px;
         right:10px; 
-        left:10px;        
+        left:10px;   
+        width:auto;     
         border-radius:2px;      
         -moz-border-radius:2px; 
         -webkit-border-radius:2px;           
