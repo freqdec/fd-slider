@@ -65,8 +65,8 @@
         }
 /* The tooltip pointer */ 
 .fd-slider-focused .fd-slider-handle:after,
-.fd-slider-hover .fd-slider-handle:after,
-.fd-slider-active .fd-slider-handle:after
+.fd-slider-hover   .fd-slider-handle:after,
+.fd-slider-active  .fd-slider-handle:after
         {
         outline:none;
         content:"";  
