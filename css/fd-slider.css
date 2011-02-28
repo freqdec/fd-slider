@@ -19,8 +19,7 @@
 /* Horizontal Outer wrapper - all other DOM elements added as children to this top level wrapper */
 .fd-slider
         {                     
-        /* By default, I've let horizontal sliders occupy 100% of the available width */
-        width:100%;
+        width:auto;
         /* The height of the slider handle */
         height:20px;
         /* Set a 10 pixel bottom margin */
@@ -35,7 +34,7 @@
         height:100%; 
         /* Set a 10 pixel right and bottom margin */      
         margin:0 10px 10px 0; 
-        /* You may wish to float the sliders left */
+        /* You may wish to float the vertical sliders left */
         /* float:left; */              
         }
 /* Shared rules */
@@ -45,8 +44,9 @@
         text-align:center;
         /* display:block required as the wrapper element is a span */
         display:block;
-        /*This lets us absolutely position the drag handle */
-        position:relative;        
+        /* This lets us absolutely position the drag handle */
+        position:relative;  
+        cursor:hand;      
         text-decoration:none;
         border:0 none;
         -moz-user-select:none;
@@ -56,7 +56,7 @@
         }
 .fd-slider-inner
         {
-        /* Set this to display:none if not styling */
+        /* Set this to display:none if not styling - it's used by IE for the onFocus glow effect */
         display:none;
         }
 /* The inner track bar */
@@ -98,11 +98,11 @@
         overflow:hidden;
         line-height:2px;
         top:9px;
-        left:11px;          	      
-        border-radius:2px;      
+        left:11px;         	      
         -moz-border-radius:2px;
         -webkit-border-radius:2px;
-        background:#bfbfbf;          
+        border-radius:2px;
+        background:#4cc;          
         background:-webkit-gradient(linear, left top, right top, from(#6cc), to(#3cf));
         background:-moz-linear-gradient(left,#6cc,#3cf);                                      
         }
