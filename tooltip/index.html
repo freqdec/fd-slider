@@ -57,7 +57,7 @@
     -->
     <fieldset>
       <legend>Javascript slider initialisation tooltip tests</legend>   
-      <p>Testing the tooltip display with the three different forms of drag handle animation, timed, jump <span class="amp">&</span> tween and also the use of the <code>aria-valuetext</code> property.</p>
+      <p>Testing the tooltip display with the three different forms of drag handle animation, timed, jump <span class="amp">&</span> tween and also the use of the <code>aria-valuetext</code> property. Please note, sliders have to have the forceValue parameter set to true for the aria-valuetext property to be assigned a value at all times.</p>
       <label for="inputTest3">Range: -10 to 10 in steps of 0.5</label>
       <p>
         <!-- Here's the form element we wil associate the first slider with. -->
@@ -78,7 +78,9 @@
         min:-10,
         max:10,
         // Use the "timed increments to click point" animation
-        animation:"timed"
+        animation:"timed",
+        // Force a value
+        forceValue:true
         });
       </script> 
       <label for="inputTest5">Range: 5 to 15 in steps of 0.2</label>
@@ -98,7 +100,9 @@
         // Max value
         max:15,
         // Use the "jump to clickpoint" animation
-        animation:"jump"
+        animation:"jump",
+        // Force a value
+        forceValue:true
         });
       </script>
       <label for="inputTest6">Range: 5 to 15 in steps of 0.2</label>
@@ -118,7 +122,9 @@
         // Max value
         max:15,
         // Use the "tween to clickpoint" animation
-        animation:"tween"
+        animation:"tween",
+        // Force a value
+        forceValue:true
         });
       </script> 
       <p>The following slider has been associated with a <code>&lt;select&gt;</code>.</p> 
@@ -142,6 +148,7 @@
         animation:"tween",
         // Keep the form element, in this case a select list, visible
         hideInput:false
+        // No "forceValue" necessary for a select list as it should always be set at a value
         });
       </script>   
     </fieldset>    
