@@ -443,6 +443,7 @@ var fdSlider = (function() {
                                 if(callbacks.hasOwnProperty(type)) {                                                                                  
                                         // Call all functions in sequence 
                                         for(var i = 0, func; func = callbacks[type][i]; i++) {
+                                                var cbObj = {"disabled":disabled, "userSet":userSet, "elem":inp, "value":tagName == "select" ? inp.options[inp.selectedIndex].value : inp.value};
                                                 func.call(inp, cbObj);
                                         };                                       
                                 }; 
