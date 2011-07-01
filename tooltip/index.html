@@ -6,21 +6,9 @@
         <meta name="author"                     content="frequency decoder" />
         <meta name="description"                content="An unobtrusive javascript that turns any text input or selectlist into a keyboard-accessible slider control" />
         <meta http-equiv="imagetoolbar"         content="no" />
-        <link rel="stylesheet" type="text/css" media="screen, projection" href="../css/fd-slider.css" />
-        <!--[if IE]><![endif]-->
-        <!--[if !IE]><!-->
-        <link rel="stylesheet" type="text/css" media="screen, projection" href="../css/fd-slider-tooltip.css" />
-        <!--<![endif]-->
         <link rel="stylesheet" type="text/css" media="screen, projection" href="../css/demo.css" />   
-        <!--[if IE 6]>
-        <link rel="stylesheet" type="text/css" media="screen, projection" href="../css/fd-slider-ie6.css" />
-        <![endif]-->
-        <!--[if IE 7]>
-        <link rel="stylesheet" type="text/css" media="screen, projection" href="../css/fd-slider-ie7.css" />
-        <![endif]-->
-        <!--[if IE 8]>
-        <link rel="stylesheet" type="text/css" media="screen, projection" href="../css/fd-slider-ie8.css" />
-        <![endif]-->
+        <link rel="stylesheet" type="text/css" media="screen, projection" href="../css/fd-slider.css" />        
+        <link rel="stylesheet" type="text/css" media="screen, projection" href="../css/fd-slider-tooltip.css" />
         <script src="../js/fd-slider.js"></script>
 </head>
 <body>
@@ -33,8 +21,8 @@
     <p id="fd-slider-describedby">Whenever a slider has focus, the keys <kbd title="Left arrow key">&larr;</kbd>, <kbd title="Right arrow key">&rarr;</kbd>, <kbd title="Up arrow key">&uarr;</kbd>, <kbd title="Down arrow key">&darr;</kbd>, <kbd title="Insert key">Ins</kbd> and <kbd title="Delete key">Del</kbd> can be used to control the slider handle (pressing either the <kbd>Page up</kbd> or <kbd>Page down</kbd> keys or <kbd title="CTRL key">CTRL</kbd> and an arrow key will move the handle by two steps at a time), the <kbd title="Home key">Home</kbd> key to set the slider at it&#8217;s minimum value and the <kbd title="End key">End</kbd> key to set the slider at it&#8217;s maximum value.</p>
     
     <h2>Quick demo</h2>
-    <p>Conditional comments have been used to hide the CSS file that creates the tooltip from Internet Explorer. The CSS file uses generated content to create the tooltip (by styling the drag handles <code>:before</code> and <code>:after</code> pseudo elements) and the value of the sliders <code>aria-valuetext</code> attribute (which is dynamically set by the slider script) to generate the tooltip content.</p>
-    <p>Remember, this is an experiment and the code <em>should not</em> be used in a production environement unless you know what you are doing.</p>
+    <p>The CSS file uses generated content to create the tooltip (by styling the drag handles <code>:before</code> and <code>:after</code> pseudo elements) and the value of the <code>aria-valuetext</code> attribute, which is dynamically set by the script, to generate the tooltip content.</p>
+    <p>Remember, this is an experiment. It will only work in browsers that support positioning generated content (so no Internet Explorer).</p>
     <fieldset>            
       <legend>HTML5 input type="range" polyfill tooltip test</legend>
       <p>When the <code>window.onload</code> event fires, the following input elements will be automatically converted into sliders <em>only</em> if the browser does not recognise the HTML5 &#8220;range&#8221; state.</p>    

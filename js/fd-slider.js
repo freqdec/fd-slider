@@ -2,7 +2,7 @@
  * Unobtrusive Slider Control / HTML5 Input Range polyfill
  * http://www.frequency-decoder.com/
  *
- * Copyright 2010, Brian McAllister
+ * Copyright 2010, 2011, Brian McAllister
  * Dual licensed under the MIT or GPL Version 2 licenses.
  *
  */
@@ -33,7 +33,7 @@ var fdSlider = (function() {
                         } else if(/mousewheelenabled|fullaria|describedby|norangebar|html5animation|varsetrules/.test(str.toLowerCase())) {                                               
                                 var f = Function(['var document,top,self,window,parent,Number,Date,Object,Function,',
                                         'Array,String,Math,RegExp,Image,ActiveXObject;',
-                                        'return (' , str.replace(/<\!--.+-->/gim,'').replace(/\bfunction\b/g,'function�') , ');'].join(''));
+                                        'return (' , str.replace(/<\!--.+-->/gim,'').replace(/\bfunction\b/g,'function-') , ');'].join(''));
                                 return f();                          
                         };
                 } catch (e) { };                              
@@ -124,7 +124,7 @@ var fdSlider = (function() {
         };
        
         // Returns an Object of key value pairs indicating which sliders have values
-        // that have been "set/chosen" by the user
+        // that have been "set" by the user
         var getValueSet = function() {
                 var obj = {};
                 for(id in sliders) {
@@ -214,9 +214,13 @@ var fdSlider = (function() {
                                         inp:            inp,                                                               
                                         callbacks:      [],                                         
                                         animation:      html5Animation,                                        
-                                        vertical:       !!getAttribute(inp, "data-fd-slider-vertical"),
+                                        vertical:       getAttribute(inp, "data-fd-slider-vertical") ? true : !!(inp.offsetHeight > inp.offsetWidth),
                                         classNames:     getAttribute(inp, "data-fd-slider-vertical"),
                                         html5Shim:      true
+                                };
+                                
+                                if(options.vertical && !getAttribute(inp, "data-fd-slider-vertical")) {
+                                        options.inpHeight = inp.offsetHeight;
                                 };
                                                                                                                       
                                 options.min             = getAttribute(inp, "min") || 0;
@@ -280,7 +284,8 @@ var fdSlider = (function() {
                     classNames  = options.classNames || "",                    
                     html5Shim   = !!options.html5Shim,                  
                     defaultVal  = max < min ? min : min + ((max - min) / 2), 
-                    forceValue  = html5Shim || !!options.forceValue,                   
+                    forceValue  = html5Shim || !!options.forceValue,
+                    inpHeight   = html5Shim && vertical && ("inpHeight" in options) ? options.inpHeight : false,                   
                     timer       = null,
                     kbEnabled   = true,                                    
                     sliderH     = 0,
@@ -440,7 +445,9 @@ var fdSlider = (function() {
                 // Calls a callback function
                 function callback(type) {                                              
                         if(!html5Shim) {                          
-                                if(callbacks.hasOwnProperty(type)) {                                                                                  
+                                if(callbacks.hasOwnProperty(type)) {  
+                                        var cbObj = {"disabled":disabled, "elem":inp, "value":tagName == "select" ? inp.options[inp.selectedIndex].value : inp.value};
+                                                                                                        
                                         // Call all functions in sequence 
                                         for(var i = 0, func; func = callbacks[type][i]; i++) {
                                                 func.call(inp, cbObj);
@@ -837,18 +844,15 @@ var fdSlider = (function() {
                 
                 // Returns a value within the range
                 function getValidValue(value) {
-                        if(isNaN(value) || value === "" || typeof value == "undefined") return defaultVal;                        
-                        else if(value < Math.min(rMin,rMax)) return Math.min(rMin,rMax);
-                        else if(value > Math.max(rMin,rMax)) return Math.max(rMin,rMax);                         
-                        return value;                       
+                        return (isNaN(value) || value === "" || typeof value == "undefined") ? defaultVal : Math.min(Math.max(value, Math.min(rMin,rMax)), Math.max(rMin,rMax));             
                 };
                 
                 // Calculates value according to pixel position of slider handle
                 function pixelsToValue(px) {                                                                                            
-                        handle.style[vertical ? "top" : "left"] = (px || 0) + "px";
-                        redrawRange();                 
                         var val = getValidValue(scale ? percentToValue(pixelsToPercent(px)) : vertical ? max - (Math.round(px / stepPx) * step) : min + (Math.round(px / stepPx) * step));                                                                                                                                                                         
                         
+                        handle.style[vertical ? "top" : "left"] = (px || 0) + "px";
+                        redrawRange();                                      
                         setInputValue((tagName == "select" || step == 1) ? Math.round(val) : val);                         
                 };                
                 
@@ -857,7 +861,7 @@ var fdSlider = (function() {
                         var clearVal = false,
                             value;
                                                             
-                        // Allow empty values for non-shim sliders
+                        // Allow empty values for non-polyfill sliders
                         if((typeof val == "undefined" || isNaN(val) || val === "") && tagName == "input" && !(html5Shim || forceValue)) {                                
                                 value    = defaultVal;
                                 clearVal = true;
@@ -991,7 +995,7 @@ var fdSlider = (function() {
                         if(defaultVal < Math.min(rMin, rMax)) defaultVal = Math.min(rMin, rMax);
                         else if(defaultVal > Math.max(rMin, rMax)) defaultVal = Math.max(rMin, rMax);                        
                 			
-			handle.setAttribute("aria-valuemin",  rMin);
+                        handle.setAttribute("aria-valuemin",  rMin);
                         handle.setAttribute("aria-valuemax",  rMax);
 			                      
                         checkValue(tagName == "input" ? parseFloat(inp.value) : inp.selectedIndex);                        		
@@ -1058,6 +1062,10 @@ var fdSlider = (function() {
                         outerWrapper.className    = "fd-slider" + (vertical ? "-vertical " : " ") + (!html5Shim ? " fd-slider-no-value " : "") + classNames;
                         outerWrapper.id           = "fd-slider-" + inp.id;
                         
+                        if(vertical && inpHeight) {
+                                outerWrapper.style.height = inpHeight + "px";  
+                        };
+                        
                         wrapper                   = document.createElement('span');
                         wrapper.className         = "fd-slider-inner";
 
@@ -1095,7 +1103,7 @@ var fdSlider = (function() {
                         if(!noRangeBar) rangeBar.unselectable     = "on";
                         bar.unselectable          = "on";
                         wrapper.unselectable      = "on";
-                        outerWrapper.unselectable = "on";
+                        outerWrapper.unselectable = "on";                             
                         /*@end@*/                             
                         
                         // Add ARIA accessibility info programmatically 
@@ -1136,8 +1144,7 @@ var fdSlider = (function() {
                                 userSet = true;                                  
                                 checkValue(tagName == "input" ? parseFloat(inp.value) : inp.selectedIndex);
                         };
-                        
-                                                        
+                                                                               
                         updateAriaValues();                        
                         callback("create");                            
                         redraw();                                                                                  
@@ -1173,6 +1180,13 @@ var fdSlider = (function() {
                         affectJSON(json);
                 };  
         })();
+        
+        // Add oldie class if needed for IE < 9
+        /*@cc_on 
+        @if (@_jscript_version < 9)
+        addClass(document.documentElement, "oldie");
+        @end 
+        @*/
                         
         return {                                           
                 createSlider:           function(opts) { createSlider(opts); },                    
@@ -1195,6 +1209,4 @@ var fdSlider = (function() {
                 setGlobalVariables:     function(json) { affectJSON(json); },
                 removeOnload:           function() { removeOnLoadEvent(); }                      
         };
-})();             
-                       
-     
+})();     

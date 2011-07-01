@@ -10,20 +10,30 @@
   single line tooltips due to styling constraints! 
 */
 
-/* The following rule is not really needed as no browser yet supports CSS transitions
-   on generated content but I'll leave it in for the day when they do! */
 .fd-slider-handle:before,
 .fd-slider-handle:after
         {
+        /* Remove from screen */
         opacity:0;
+        /* The following rules are not really needed as no browser yet supports CSS transitions
+           on generated content but I'll leave it in for the day when they do! */
+           
         /* Firefox */
-        -moz-transition: opacity 1s ease 0.5s;
+        -moz-transition-property: opacity;
+        -moz-transition-duration: 1s;
+        -moz-transition-delay: 1s;
         /* WebKit */
-        -webkit-transition: opacity 1s ease 0.5s;
+        -webkit-transition-property: opacity;
+        -webkit-transition-duration: 1s;
+        -webkit-transition-delay: 1s;
         /* Opera */
-        -o-transition: opacity 1s ease 0.5s;
+        -o-transition-property: opacity;
+        -o-transition-duration: 1s;
+        -o-transition-delay: 1s;
         /* Standard */
-        transition: opacity 1s ease 0.5s;
+        transition-property: opacity;
+        transition-duration: 1s;
+        transition-delay: 1s;
         }
 /* 
    The tooltip body - as we position it above the slider and position the tooltip arrow
@@ -38,6 +48,7 @@
 .fd-slider-hover   .fd-slider-handle:before,
 .fd-slider-active  .fd-slider-handle:before
         {
+        display:block;
         position:absolute;
         top:-25px;
         left:-25px;
@@ -56,7 +67,10 @@
         /* Border radius and box shadow */          
         -moz-border-radius:3px;
         -webkit-border-radius:3px;
-        border-radius:3px; 
+        border-radius:3px;
+        -moz-background-clip: padding; 
+        -webkit-background-clip: padding-box; 
+        background-clip: padding-box;  
         -moz-box-shadow: 0 0 4px #aaa;
         -webkit-box-shadow: 0 0 4px #aaa;
         box-shadow: 0 0 4px #aaa; 
@@ -83,6 +97,7 @@
         /* Rotate element by 45 degress to get the "\/" pointer effect */
         -webkit-transform: rotate(45deg); 
         -moz-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
         /* Add a box shadow */	
         -moz-box-shadow: 0 0 4px #aaa;
         -webkit-box-shadow: 0 0 4px #aaa;
@@ -91,4 +106,10 @@
         clip:rect(4px, 14px, 14px, 4px); 
         /* Change opacity for transition */        
         opacity: 1;             
-        }       
+        }
+/* Remove completely for IE */
+.oldie .fd-slider-handle:before,
+.oldie .fd-slider-handle:after
+        {
+        display:none;
+        }      
