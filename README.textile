@@ -15,7 +15,7 @@ h2. At a glance
 h2. Quick Demos 
 
 * "Mixed HTML5 polyfill and Javascript API demo":http://www.frequency-decoder.com/demo/fd-slider/
-* "Using yesnope and Modernizr to load dependencies only when required for HT?L5 polyfills":http://www.frequency-decoder.com/demo/fd-slider/yesnope/
+* "Using yesnope and Modernizr to load dependencies only when required for HTML5 polyfills":http://www.frequency-decoder.com/demo/fd-slider/yesnope/
 * "CSS generated content tooltip extension":http://www.frequency-decoder.com/demo/fd-slider/tooltip/
 
 h2. More Information
