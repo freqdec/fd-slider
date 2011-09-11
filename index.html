@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- The script automatically adds the class "oldie" to the html element in IE 6, 7 & 8 -->
+<!-- The script automatically adds the class "oldie" to the html element in IE < 9 -->
 <html lang="en">
 <head>
         <meta charset="utf-8" />
@@ -18,7 +18,7 @@
     <h1>Accessible, Unobtrusive &#8220;Slider/HTML5 range polyfill&#8221; Demo</h1>
     <h2>Keyboard Controls</h2>
     <!-- The following paragraph is used to set the ARIA describedby property -->
-    <p id="fd-slider-describedby">Whenever a slider has focus, the keys <kbd title="Left arrow key">&larr;</kbd>, <kbd title="Right arrow key">&rarr;</kbd>, <kbd title="Up arrow key">&uarr;</kbd>, <kbd title="Down arrow key">&darr;</kbd>, <kbd title="Insert key">Ins</kbd> and <kbd title="Delete key">Del</kbd> can be used to control the slider handle (pressing either the <kbd>Page up</kbd> or <kbd>Page down</kbd> keys or <kbd title="CTRL key">CTRL</kbd> and an arrow key will move the handle by two steps at a time), the <kbd title="Home key">Home</kbd> key to set the slider at it&#8217;s minimum value and the <kbd title="End key">End</kbd> key to set the slider at it&#8217;s maximum value.</p>   
+    <p id="fd-slider-describedby">Whenever a slider has focus, the keys <kbd title="Left arrow key">&larr;</kbd>, <kbd title="Right arrow key">&rarr;</kbd>, <kbd title="Up arrow key">&uarr;</kbd>, <kbd title="Down arrow key">&darr;</kbd>, <kbd title="Insert key">Ins</kbd> and <kbd title="Delete key">Del</kbd> can be used to control the slider handle (pressing either the <kbd>Page up</kbd> or <kbd>Page down</kbd> keys or <kbd title="CTRL key">CTRL</kbd> and an arrow key will move the handle by two steps at a time), the <kbd title="Home key">Home</kbd> key to set the slider at the minimum value and the <kbd title="End key">End</kbd> key to set the slider at the maximum value.</p>   
     <h2>Mixed HTML5 Polyfill &amp; Javascript API Creation Demos</h2>
     <h3>&#8230;as usual, &#8220;View Source&#8221; is your friend</h3>
 
@@ -55,7 +55,7 @@
         <a href="#" onclick="document.getElementById('html5shim-2').stepDown(); return false;"><code>stepDown()</code></a>        
       </p>  
       <script>
-      // Add an onchange event that updates a span with the input value      
+      // Add an onchange event to the input element that updates a span with the inputs value      
       fdSlider.addEvent(document.getElementById("html5shim-2"), "change", function(e) {
         document.getElementById("html5shim-2-out").innerHTML = "(Current Value: " + document.getElementById("html5shim-2").value + ")";
       });
@@ -77,10 +77,11 @@
       </p>
       <!--
       
-      Slider #4: CSS has been used to make the following input element 400 pixels in height and 20 pixels wide, which makes the script create a vertical slider
+      Slider #4: CSS has been used to make the following input element 400 pixels in height and 20 pixels wide, which instructs
+      the script automatically create a vertical slider
       
       -->
-      <p>CSS has been used to make the following input element 400 pixels in height and 20 pixels wide, which makes the script create a vertical slider.</p>      
+      <p>CSS has been used to make the following input element 400 pixels in height and 20 pixels wide, which instructs the script to create a vertical slider.</p>      
       <label for="html5shim-4">Range: 100 to 0 in steps of 1</label>
       <p>
         <input name="html5shim-4" id="html5shim-4" type="range" min="100" max="0" step="1" title="Range: 100 to 0 in steps of 1" value="" /> 
@@ -139,10 +140,10 @@
         min:5,
         // Max value
         max:15,
-        // Define a scale - multiple percentage markers possible, I'm just using one for the demo
+        // Define a scale (multiple points supported, I'm just using one for the demo)
         scale:{
-                // At 50% of the slider width, the value should be 13
-                "50":"13"
+                // At 50% of the slider scale, the value should be 13
+                "50":"13"       
         },
         // Use the "jump to click point" animation
         animation:"jump"

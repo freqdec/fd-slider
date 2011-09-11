@@ -1,11 +1,4 @@
-/*
- * Unobtrusive Slider Control / HTML5 Input Range polyfill
- * http://www.frequency-decoder.com/
- *
- * Copyright 2010, 2011, Brian McAllister
- * Dual licensed under the MIT or GPL Version 2 licenses.
- *
- */
+/*! Unobtrusive Slider Control / HTML5 Input Range polyfill v6a MIT/GPL2 @freqdec */
 var fdSlider = (function() {
         var sliders           = {},     
             uniqueid          = 0,
@@ -24,7 +17,9 @@ var fdSlider = (function() {
             
         var parseJSON = function(str) {
                 // Check we have a String
-                if(typeof str !== 'string' || str == "") { return {}; };                 
+                if(typeof str !== 'string' || str == "") { 
+                        return {}; 
+                };                 
                 try {
                         // Does a JSON (native or not) Object exist                              
                         if(typeof JSON === "object" && JSON.parse) {                                              
@@ -135,8 +130,12 @@ var fdSlider = (function() {
         
         // Sets the valueSet variable for a specific slider
         var setValueSet = function(sliderId, tf) {                 
-                if(!(sliderId in sliders)) return;
                 sliders[sliderId].setValueSet(!!tf);             
+        };
+        
+        // Does the slider exist in memory
+        var sliderExists = function(slider) {
+                return !!(slider in sliders && sliders.hasOwnProperty(slider));                        
         };
                                                              
         // Javascript instantiation of a slider (input type="text" or select list)       
@@ -237,7 +236,7 @@ var fdSlider = (function() {
                 return true;
         };             
         var destroySingleSlider = function(id) {
-                if(id in sliders) { 
+                if(id in sliders && sliders.hasOwnProperty(id)) { 
                         sliders[id].destroy(); 
                         delete sliders[id]; 
                         return true;
@@ -245,7 +244,11 @@ var fdSlider = (function() {
                 return false;
         };
         var destroyAllsliders = function(e) {
-                for(slider in sliders) { sliders[slider].destroy(); };
+                for(slider in sliders) { 
+                        if(sliders.hasOwnProperty(slider)) {
+                                sliders[slider].destroy();
+                        }; 
+                };
                 sliders = [];                        
         };
         var unload = function(e) {
@@ -253,7 +256,11 @@ var fdSlider = (function() {
                 sliders = null;                         
         };                  
         var resize = function(e) {
-                for(slider in sliders) { sliders[slider].onResize(); };        
+                for(slider in sliders) { 
+                        if(sliders.hasOwnProperty(slider)) {
+                                sliders[slider].onResize();
+                        }; 
+                };        
         };             
         var onDomReady = function() {
                 removeEvent(window, "load",   init);
@@ -310,7 +317,7 @@ var fdSlider = (function() {
                     handle,
                     rangeBar,
                     bar;                                 
-                 
+                
                 // Make sure we have a negative step if the max < min  
                 if(max < min) {                           
                         step    = -Math.abs(step);
@@ -481,7 +488,9 @@ var fdSlider = (function() {
                         if(mouseWheelEnabled) {
                                 addEvent(window, 'DOMMouseScroll', trackMouseWheel);
                                 addEvent(document, 'mousewheel', trackMouseWheel);
-                                if(!isOpera) addEvent(window,   'mousewheel', trackMouseWheel); 
+                                if(!isOpera) {
+                                        addEvent(window,   'mousewheel', trackMouseWheel);
+                                }; 
                         }; 
                         
                         // Callback...
@@ -496,7 +505,9 @@ var fdSlider = (function() {
                         if(mouseWheelEnabled) {
                                 removeEvent(document, 'mousewheel', trackMouseWheel);
                                 removeEvent(window, 'DOMMouseScroll', trackMouseWheel);
-                                if(!isOpera) removeEvent(window,   'mousewheel', trackMouseWheel);
+                                if(!isOpera) {
+                                        removeEvent(window,   'mousewheel', trackMouseWheel);
+                                };
                         };
                         
                         kbEnabled = true;
@@ -507,25 +518,30 @@ var fdSlider = (function() {
                 
                 // MOUSEWHEEL events
                 function trackMouseWheel(e) {
-                        if(!kbEnabled) return;
+                        if(!kbEnabled) {
+                                return;
+                        };
                         e = e || window.event;
-                        var delta = 0;
+                        var delta = 0,
+                            value;
                             
                         if (e.wheelDelta) {
                                 delta = e.wheelDelta/120;
                                 // Older versions of Opera require a small hack to inverse the delta
-                                if (isOpera && window.opera.version() < 9.2) delta = -delta;
+                                if (isOpera && window.opera.version() < 9.2) {
+                                        delta = -delta;
+                                };
                         } else if(e.detail) {
                                 delta = -e.detail/3;
                         };
                         
-                        if(vertical) { delta = -delta; };
+                        if(vertical) { 
+                                delta = -delta;
+                        };
                         
                         if(delta) {                                
-                                var value = getWorkingValueFromInput();
-                                   
-                                value += (delta < 0) ? -step : step;
-                                                        
+                                value = getWorkingValueFromInput();                                   
+                                value += (delta < 0) ? -step : step;                                                        
                                 userSet = true;
                                 valueToPixels(getValidValue(value));                        
                         };
@@ -544,14 +560,19 @@ var fdSlider = (function() {
                 };               
                         
                 function onKeyDown(e) {
-                        if(!kbEnabled) return true;
+                        if(!kbEnabled) {
+                                return true;
+                        };
 
                         e = e || window.event;
-                        var kc = e.keyCode != null ? e.keyCode : e.charCode;
+                        var kc = e.keyCode != null ? e.keyCode : e.charCode,
+                            value;
                         
-                        if ( kc < 33 || (kc > 40 && (kc != 45 && kc != 46))) return true;
+                        if(kc < 33 || (kc > 40 && (kc != 45 && kc != 46))) {
+                                return true;
+                        };
 
-                        var value = getWorkingValueFromInput();
+                        value = getWorkingValueFromInput();
                         
                         if( kc == 37 || kc == 40 || kc == 46 || kc == 34) {
                                 // left, down, ins, page down                                                              
@@ -598,9 +619,14 @@ var fdSlider = (function() {
                                   
                         // Grab the event target                        
                         var targ;                          
-                        if (e.target) targ = e.target;
-                        else if (e.srcElement) targ = e.srcElement;
-                        if(targ.nodeType == 3) targ = targ.parentNode;
+                        if (e.target) {
+                                targ = e.target;
+                        } else if (e.srcElement) {
+                                targ = e.srcElement;
+                        };
+                        if(targ && targ.nodeType == 3) {
+                                targ = targ.parentNode;
+                        };
 
                         // Are we using touchEvents
                         if(e.touches) {                                            
@@ -653,7 +679,7 @@ var fdSlider = (function() {
                                     sTop        = 0;
         
                                 // Internet Explorer doctype woes
-                                if (document.documentElement && document.documentElement.scrollTop) {
+                                if(document.documentElement && document.documentElement.scrollTop) {
                                         sTop = document.documentElement.scrollTop;
                                         sLft = document.documentElement.scrollLeft;
                                 } else if (document.body) {
@@ -661,8 +687,11 @@ var fdSlider = (function() {
                                         sLft = document.body.scrollLeft;
                                 };
         
-                                if (e.pageX)            posx = vertical ? e.pageY : e.pageX;
-                                else if (e.clientX)     posx = vertical ? e.clientY + sTop : e.clientX + sLft;
+                                if(e.pageX) {
+                                        posx = vertical ? e.pageY : e.pageX;
+                                } else if (e.clientX) {
+                                        posx = vertical ? e.clientY + sTop : e.clientX + sLft;
+                                };
                                 
                                 posx -= vertical ? y + Math.round(handle.offsetHeight / 2) : x + Math.round(handle.offsetWidth / 2);                         
                                 posx = snapToPxValue(posx);                                                        
@@ -774,11 +803,11 @@ var fdSlider = (function() {
                         xtmp = Math.round((destPos < xtmp) ? Math.max(destPos, Math.floor(xtmp - stepPx)) : Math.min(destPos, Math.ceil(xtmp + stepPx)));                  
                         
                         pixelsToValue(snapToPxValue(xtmp));
-                        if(xtmp != destPos) timer = setTimeout(onTimer, steps > 20 ? 50 : 100);
-                        else {
+                        if(xtmp != destPos) {
+                                timer = setTimeout(onTimer, steps > 20 ? 50 : 100);
+                        } else {
                                 kbEnabled = true;
-                                removeClass(outerWrapper, "fd-slider-active");  
-                                
+                                removeClass(outerWrapper, "fd-slider-active");                                
                                 callback("finalise");
                         };
                 };
@@ -818,7 +847,9 @@ var fdSlider = (function() {
                         tweenD    = 20;
                         frame     = 0;
                                               
-                        if(!timer) { timer = setTimeout(tween, 20); };
+                        if(!timer) { 
+                                timer = setTimeout(tween, 20);
+                        };
                 };
                 
                 // Returns a value within the range 
@@ -881,11 +912,17 @@ var fdSlider = (function() {
                                 return Math.max(Math.min(rMaxPx, px), rMinPx);                        
                         } else {                
                                 var rem = px % stepPx;
-                                if(rem && rem >= (stepPx / 2)) { px += (stepPx - rem); } 
-                                else { px -= rem;  };     
+                                if(rem && rem >= (stepPx / 2)) { 
+                                        px += (stepPx - rem); 
+                                } else { 
+                                        px -= rem;  
+                                };     
                                 
-                                if(px < Math.min(Math.abs(rMinPx), Math.abs(rMaxPx))) px = Math.min(Math.abs(rMinPx), Math.abs(rMaxPx));
-                                else if(px > Math.max(Math.abs(rMinPx), Math.abs(rMaxPx))) px = Math.max(Math.abs(rMinPx), Math.abs(rMaxPx));
+                                if(px < Math.min(Math.abs(rMinPx), Math.abs(rMaxPx))) {
+                                        px = Math.min(Math.abs(rMinPx), Math.abs(rMaxPx));
+                                } else if(px > Math.max(Math.abs(rMinPx), Math.abs(rMaxPx))) {
+                                        px = Math.max(Math.abs(rMinPx), Math.abs(rMaxPx));
+                                };
                                          
                                 return Math.min(Math.max(px, 0), rMaxPx); 
                         };       
@@ -906,11 +943,11 @@ var fdSlider = (function() {
                                         value = fr + ((pct - st) * (+scale[s] - fr) ) / (+s - st);
     	                        };
 
-    	                       st = +s;
-    	                       fr = +scale[s];
-    	               };
+                                st = +s;
+                                fr = +scale[s];
+                        };
 
-  	               return value;   
+                        return value;   
                 };
                 
                 // Calculates the percentage handle position according to form element value
@@ -958,14 +995,18 @@ var fdSlider = (function() {
                         if(tagName == "select") {
                                 try {                                                                          
                                         val = parseInt(val, 10);                                        
-                                        if(inp.selectedIndex === val) return;
+                                        if(inp.selectedIndex === val) {
+                                                updateAriaValues();                                                          
+                                                return;
+                                        };
                                         inp.options[val].selected = true;                                                                             
                                 } catch (err) {};
                         } else {                                                                                                                                                                                                                                                                                                                                   
                                 if(val != "") {
                                         val = (min + (Math.round((val - min) / step) * step)).toFixed(precision);                                  
                                 };
-                                if(inp.value === val) {                                                          
+                                if(inp.value === val) {
+                                        updateAriaValues();                                                          
                                         return;
                                 };
                                 inp.value = val;                                 
@@ -992,8 +1033,11 @@ var fdSlider = (function() {
                                 rMax   = Math.max(newMin, newMax);
                         };         
                         
-                        if(defaultVal < Math.min(rMin, rMax)) defaultVal = Math.min(rMin, rMax);
-                        else if(defaultVal > Math.max(rMin, rMax)) defaultVal = Math.max(rMin, rMax);                        
+                        if(defaultVal < Math.min(rMin, rMax)) {
+                                defaultVal = Math.min(rMin, rMax);
+                        } else if(defaultVal > Math.max(rMin, rMax)) {
+                                defaultVal = Math.max(rMin, rMax);
+                        };                        
                 			
                         handle.setAttribute("aria-valuemin",  rMin);
                         handle.setAttribute("aria-valuemax",  rMax);
@@ -1025,7 +1069,10 @@ var fdSlider = (function() {
                                 };
                         };
                         
-                        if(label && !label.id) { label.id = inp.id + "_label"; };
+                        if(label && !label.id) { 
+                                label.id = inp.id + "_label"; 
+                        };
+                        
                         return label;
                 };
                 
@@ -1189,23 +1236,23 @@ var fdSlider = (function() {
         @*/
                         
         return {                                           
-                createSlider:           function(opts) { createSlider(opts); },                    
+                createSlider:           function(opts) { return createSlider(opts); },                    
+                onDomReady:             function() { onDomReady(); },
                 destroyAll:             function() { destroyAllsliders(); },
                 destroySlider:          function(id) { return destroySingleSlider(id); },
                 redrawAll:              function() { resize(); },
-                increment:              function(id, numSteps) { if(!(id in sliders)) { return false; }; sliders[id].increment(numSteps); },
-                stepUp:                 function(id, n) { if(!(id in sliders)) { return false; }; sliders[id].stepUp(Math.abs(n)||1); },
-                stepDown:               function(id, n) { if(!(id in sliders)) { return false; }; sliders[id].stepDown(-Math.abs(n)||-1); },
-                setRange:               function(id, newMin, newMax) { if(!(id in sliders)) { return false; }; sliders[id].setRange(newMin, newMax); },
                 addEvent:               addEvent,
                 removeEvent:            removeEvent,
                 stopEvent:              stopEvent,
-                updateSlider:           function(id) { if(!(id in sliders)) { return false; }; sliders[id].reset(); },        
-                onDomReady:             function() { onDomReady(); },
-                disable:                function(id) { if(!(id in sliders)) { return false; }; sliders[id].disable(); }, 
-                enable:                 function(id) { if(!(id in sliders)) { return false; }; sliders[id].enable(); },
+                increment:              function(id, numSteps) { if(!sliderExists(id)) { return false; }; sliders[id].increment(numSteps); },
+                stepUp:                 function(id, n) { if(!sliderExists(id)) { return false; }; sliders[id].stepUp(Math.abs(n)||1); },
+                stepDown:               function(id, n) { if(!sliderExists(id)) { return false; }; sliders[id].stepDown(-Math.abs(n)||-1); },
+                setRange:               function(id, newMin, newMax) { if(!sliderExists(id)) { return false; }; sliders[id].setRange(newMin, newMax); },
+                updateSlider:           function(id) { if(!sliderExists(id)) { return false; }; sliders[id].reset(); },        
+                disable:                function(id) { if(!sliderExists(id)) { return false; }; sliders[id].disable(); }, 
+                enable:                 function(id) { if(!sliderExists(id)) { return false; }; sliders[id].enable(); },
                 getValueSet:            function() { return getValueSet(); },
-                setValueSet:            function(a, tf) { setValueSet(a, tf); },
+                setValueSet:            function(a, tf) { if(!sliderExists(id)) { return false; }; setValueSet(a, tf); },
                 setGlobalVariables:     function(json) { affectJSON(json); },
                 removeOnload:           function() { removeOnLoadEvent(); }                      
         };
