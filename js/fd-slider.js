@@ -1,4 +1,4 @@
-/*! Unobtrusive Slider Control / HTML5 Input Range polyfill v6a MIT/GPL2 @freqdec */
+/*! Unobtrusive Slider Control / HTML5 Input Range polyfill - MIT/GPL2 @freqdec */
 var fdSlider = (function() {
         var sliders           = {},     
             uniqueid          = 0,
@@ -71,16 +71,13 @@ var fdSlider = (function() {
         // Classic event functions                 
         var addEvent = function(obj, type, fn) {                
                 if( obj.attachEvent ) {
-                        obj["e"+type+fn] = fn;
-                        obj[type+fn] = function(){obj["e"+type+fn]( window.event );};
-                        obj.attachEvent( "on"+type, obj[type+fn] );
+                        obj.attachEvent( "on"+type, fn );
                 } else { obj.addEventListener( type, fn, true ); }
         };
         var removeEvent = function(obj, type, fn) {
                 try {
                         if( obj.detachEvent ) {
-                                obj.detachEvent( "on"+type, obj[type+fn] );
-                                obj[type+fn] = null;                        
+                                obj.detachEvent( "on"+type, fn );         
                         } else { obj.removeEventListener( type, fn, true ); }
                 } catch(err) {};
         };
@@ -106,8 +103,7 @@ var fdSlider = (function() {
                         return;
                 };
                 e.returnValue = false;
-        };
-        
+        };        
         // Add/Remove classname utility functions
         var addClass = function(e,c) {
                 if(new RegExp("(^|\\s)" + c + "(\\s|$)").test(e.className)) { return; };
@@ -206,7 +202,9 @@ var fdSlider = (function() {
                                 };
                                 
                                 // Create an id for the form element if necessary
-                                if(!inp.id) { inp.id = "fd-slider-form-elem-" + uniqueid++; };                      
+                                if(!inp.id) { 
+                                        inp.id = "fd-slider-form-elem-" + uniqueid++; 
+                                };                      
                                                                 
                                 // Basic option Object        
                                 options = {
@@ -229,7 +227,7 @@ var fdSlider = (function() {
                                 options.maxStep         = options.step * 2; 
                                                                                        
                                 destroySingleSlider(options.inp.id);
-                                sliders[options.inp.id] = new fdRange(options);
+                                sliders[options.inp.id] = new fdRange(options);              
                         };                       
                 };
                 
@@ -290,11 +288,13 @@ var fdSlider = (function() {
                     callbacks   = options.callbacks || {},
                     classNames  = options.classNames || "",                    
                     html5Shim   = !!options.html5Shim,                  
-                    defaultVal  = max < min ? min : min + ((max - min) / 2), 
+                    defaultVal  = max < min ? min : min + ((max - min) / 2),
+                    resetDef    = tagName == "select" ? inp.selectedIndex : inp.defaultValue || defaultVal, 
                     forceValue  = html5Shim || !!options.forceValue,
                     inpHeight   = html5Shim && vertical && ("inpHeight" in options) ? options.inpHeight : false,                   
                     timer       = null,
-                    kbEnabled   = true,                                    
+                    kbEnabled   = true,
+                    initialVal  = tagName == "select" ? inp.selectedIndex : inp.value,                                    
                     sliderH     = 0,
                     sliderW     = 0, 
                     tweenX      = 0,
@@ -318,6 +318,11 @@ var fdSlider = (function() {
                     rangeBar,
                     bar;                                 
                 
+                // For the reset event to work we have set a defaultValue
+                if(tagName == "input" && forceValue && !inp.defaultValue) {                        
+                        inp.defaultValue = getWorkingValueFromInput();        
+                };
+                
                 // Make sure we have a negative step if the max < min  
                 if(max < min) {                           
                         step    = -Math.abs(step);
@@ -339,10 +344,12 @@ var fdSlider = (function() {
                 };
                 
                 function disableSlider(noCallback) {                         
-                        if(disabled && !noCallback) { return; };
+                        if(disabled && !noCallback) { 
+                                return;
+                        };
                         
                         try {   
-                                
+                                setTabIndex(handle, -1);
                                 removeEvent(handle, "focus",     onFocus);
                                 removeEvent(handle, "blur",      onBlur);  
                                                       
@@ -367,13 +374,13 @@ var fdSlider = (function() {
                                 };
                         } catch(err) {};
                         
-                        clearTimeout(timer);
                         removeClass(outerWrapper, "fd-slider-focused");
                         removeClass(outerWrapper, "fd-slider-active");
                         
                         addClass(outerWrapper, "fd-slider-disabled");
                         outerWrapper.setAttribute("aria-disabled", true);                        
                         inp.disabled = disabled = true;
+                        clearTimeout(timer);
                         
                         if(!noCallback) {
                                 callback("disable");
@@ -381,8 +388,11 @@ var fdSlider = (function() {
                 };
                 
                 function enableSlider(noCallback) {                         
-                        if(!disabled && !noCallback) return;                        
+                        if(!disabled && !noCallback) {
+                                return;
+                        };                        
                         
+                        setTabIndex(handle, 0);
                         addEvent(handle, "focus",      onFocus);
                         addEvent(handle, "blur",       onBlur);   
                         
@@ -425,7 +435,8 @@ var fdSlider = (function() {
                 // Calculates the pixel increment etc
                 function redraw() {
                         locate();
-                        // Internet Explorer requires the try catch
+                        // Internet Explorer requires the try catch as hidden
+                        // elements throw errors
                         try {
                                 var sW  = outerWrapper.offsetWidth,
                                     sH  = outerWrapper.offsetHeight,
@@ -443,7 +454,7 @@ var fdSlider = (function() {
                                 sliderH = sH;                                
                                 
                                 // Use the input value
-                                valueToPixels(html5Shim || forceValue ? getWorkingValueFromInput() : (tagName == "select" ? inp.selectedIndex : parseFloat(inp.value)));
+                                valueToPixels(forceValue ? getWorkingValueFromInput() : (tagName == "select" ? inp.selectedIndex : parseFloat(inp.value)));
                                 
                         } catch(err) {};
                         callback("redraw");
@@ -712,7 +723,7 @@ var fdSlider = (function() {
                                         //addEvent(document, touchEvents ? 'touchend' : 'mouseup', onMouseUp);                                                      
                                 };                                                                                   
                         };
-                        
+
                         return stopEvent(e);                                                      
                 };
                 
@@ -852,7 +863,8 @@ var fdSlider = (function() {
                         };
                 };
                 
-                // Returns a value within the range 
+                // Returns a value within the range & sets the userSet var
+                // i.e. has the user entered a valid value
                 function checkValue(value) {
                         if(isNaN(value) || value === "" || typeof value == "undefined") {                                                                                          
                                 userSet = false;
@@ -893,7 +905,7 @@ var fdSlider = (function() {
                             value;
                                                             
                         // Allow empty values for non-polyfill sliders
-                        if((typeof val == "undefined" || isNaN(val) || val === "") && tagName == "input" && !(html5Shim || forceValue)) {                                
+                        if((typeof val == "undefined" || isNaN(val) || val === "") && tagName == "input" && !forceValue) {                                
                                 value    = defaultVal;
                                 clearVal = true;
                                 userSet  = false;    
@@ -982,6 +994,7 @@ var fdSlider = (function() {
                 
                 // Sets the form element with a valid value
                 function setInputValue(val) {
+                        // The update callback doesn't mean the input value has changed
                         callback("update");
                                                                                                     
                         // If the user has not set this value or has entered an incorrect value then set a class
@@ -1087,12 +1100,28 @@ var fdSlider = (function() {
                         updateAriaValues();                                                 
                 };                  
                 
+                function onReset(e) {
+                        if(tagName == "input") {
+                                inp.value = inp.defaultValue;
+                        } else {
+                                inp.selectedIndex = resetDef;
+                        };                        
+                        checkValue(tagName == "select" ? inp.options[inp.selectedIndex].value : inp.value);
+                        redraw();
+                        updateAriaValues();
+                };
+                
                 function valueSet(tf) {
                         userSet = !!tf;
                 };
                 
+                // Sets a tabindex attribute on an element, bends over for IE.
+                function setTabIndex(e, i) {
+                        e.setAttribute(!/*@cc_on!@*/false ? "tabIndex" : "tabindex", i);
+                        e.tabIndex = i;                        
+                };
+                
                 (function() {                         
-                                                
                         if(html5Shim || hideInput) { 
                                 addClass(inp, "fd-form-element-hidden");                                                
                         } else {
@@ -1125,13 +1154,15 @@ var fdSlider = (function() {
                         };
                         
                         if(fullARIA) {
-                                handle            = document.createElement('span');                                
-                                handle.tabIndex   = 0;
+                                handle            = document.createElement('span');                  
                         } else {
                                 handle            = document.createElement('a');                                 
                                 handle.setAttribute("href", "#");
+                                addEvent(handle, "click", stopEvent);
                         };
                         
+                        setTabIndex(handle, 0);
+
                         handle.className          = "fd-slider-handle";                        
                         handle.appendChild(document.createTextNode(String.fromCharCode(160)));                         
                         
@@ -1186,17 +1217,21 @@ var fdSlider = (function() {
                         };                            
                         
                         // Does an initial form element value mean the user has set a valid value?
-                        // Note: This only works onload on IE                         
+                        // Also called onload in case browsers have automatically set the input value
                         if(varSetRules.onvalue) {                                                                
                                 userSet = true;                                  
                                 checkValue(tagName == "input" ? parseFloat(inp.value) : inp.selectedIndex);
+                        };
+                        
+                        if(inp.form) {
+                                addEvent(inp.form, "reset", onReset);                               
                         };
                                                                                
                         updateAriaValues();                        
                         callback("create");                            
                         redraw();                                                                                  
                 })();
-               
+        
                 return {
                         onResize:       function(e) { if(outerWrapper.offsetHeight != sliderH || outerWrapper.offsetWidth != sliderW) { redraw(); }; },
                         destroy:        function()  { destroySlider(); },
@@ -1209,11 +1244,12 @@ var fdSlider = (function() {
                         setRange:       function(mi, mx) { setSliderRange(mi, mx); },
                         getValueSet:    function() { return !!userSet; },
                         setValueSet:    function(tf) { valueSet(tf); },
-                        ieCheckValue:   function() { if(varSetRules.onvalue) { userSet = true; checkValue(tagName == "input" ? parseFloat(inp.value) : inp.selectedIndex); updateAriaValues(); redraw(); }; }
+                        checkValue:     function() { if(varSetRules.onvalue) { userSet = true; checkValue(tagName == "input" ? parseFloat(inp.value) : inp.selectedIndex); }; updateAriaValues(); redraw(); }
                 };
         }; 
                
         addEvent(window, "load",   init);
+        addEvent(window, "load",   function() { setTimeout(function() { var slider; for(slider in sliders) { sliders[slider].checkValue(); } }, 0); });
         addEvent(window, "resize", resize);        
         addEvent(window, "unload", unload);
         

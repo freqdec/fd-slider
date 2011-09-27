@@ -25,6 +25,7 @@
     <fieldset>            
       <legend>HTML5 input type="range" polyfill tests</legend>
       <p>When the <code>window.onload</code> event fires, the following input elements will be automatically converted into sliders <em>only</em> if the browser does not recognise the HTML5 input &#8220;range&#8221; state.</p>    
+      <p><em>Please Note</em>: At the time of writing, only webkit and Opera support the input range state and even then, they do not appear to fully support vertical ranges (webkit) or ranges that have a minimum value greater than the maximum value (both webkit and Opera).</p>
       <!--
       
       Sliders #1, #2 & #3 created automatically by the script on page load only if the browser does not support type="range".
@@ -36,7 +37,7 @@
       -->
       <label for="html5shim-1">Range: -10 to 10 in steps of 0.2</label>
       <p>
-        <input name="html5shim-1" id="html5shim-1" type="range" min="-10" max="10" step="0.20" title="Range: -10 to 10 in steps of 0.2" value="" />
+        <input name="html5shim-1" id="html5shim-1" type="range" min="-10" max="10" step="0.20" title="Range: -10 to 10 in steps of 0.2" value="8.2" />
         <a href="#" onclick="document.getElementById('html5shim-1').stepUp(); return false;"><code>stepUp()</code></a> or
         <a href="#" onclick="document.getElementById('html5shim-1').stepDown(); return false;"><code>stepDown()</code></a>
       </p>     
@@ -44,7 +45,7 @@
       
       Slider #2: No "min" or "max" attributes given (they default to 0 and 100 respectivey) but the required "step" attribute set to "1".
       
-      Additionally, an onchange event has been set to test if the script honours HTML events set on the original Input.
+      Additionally, an onchange event has been set to test if the script honours HTML events set on the original input.
       
       -->   
       <p>The following Input has an <code>onchange</code> event that updates the value of a <code>span</code> positioned within the associated <code>label</code>.</p>
@@ -55,7 +56,7 @@
         <a href="#" onclick="document.getElementById('html5shim-2').stepDown(); return false;"><code>stepDown()</code></a>        
       </p>  
       <script>
-      // Add an onchange event to the input element that updates a span with the inputs value      
+      // Add an onchange event to the input element that updates a span with the input value      
       fdSlider.addEvent(document.getElementById("html5shim-2"), "change", function(e) {
         document.getElementById("html5shim-2-out").innerHTML = "(Current Value: " + document.getElementById("html5shim-2").value + ")";
       });

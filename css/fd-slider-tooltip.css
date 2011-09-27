@@ -17,21 +17,21 @@
         /* Remove from screen */
         opacity:0;
         /* Firefox */
-        -moz-transition-property: opacity;
-        -moz-transition-duration: .5s;
-        -moz-transition-delay: 0s;
+        -moz-transition-property: all;
+        -moz-transition-duration: 0.3s;
+        -moz-transition-delay: 0.2s;
         /* WebKit */
-        -webkit-transition-property: opacity;
-        -webkit-transition-duration: .5s;
-        -webkit-transition-delay: 0s;
+        -webkit-transition-property: all;
+        -webkit-transition-duration: 0.3s;
+        -webkit-transition-delay: 0.2s;
         /* Opera */
-        -o-transition-property: opacity;
-        -o-transition-duration: .5s;
-        -o-transition-delay: 0s;
+        -o-transition-property: all;
+        -o-transition-duration: 0.3s;
+        -o-transition-delay: 0.2s;
         /* Standard */
-        transition-property: opacity;
-        transition-duration: .5s;
-        transition-delay: 0s;
+        transition-property: all;
+        transition-duration: 0.3s;
+        transition-delay: 0.2s;
         }
 /* 
    The tooltip body - as we position it above the slider and position the tooltip arrow
@@ -42,13 +42,11 @@
    and the tooltip pointer above the tooltip body. Additionally, you will have to set the
    tooltip bodies "height" to auto
 */
-.fd-slider-focused .fd-slider-handle:before,
-.fd-slider-hover   .fd-slider-handle:before,
-.fd-slider-active  .fd-slider-handle:before
+.fd-slider-handle:before
         {
         display:block;
         position:absolute;
-        top:-25px;
+        top:-30px;
         left:-25px;
         margin:0;
         width:60px;
@@ -66,25 +64,17 @@
         -moz-border-radius:3px;
         -webkit-border-radius:3px;
         border-radius:3px;
-        -moz-background-clip: padding; 
-        -webkit-background-clip: padding-box; 
-        background-clip: padding-box;  
         -moz-box-shadow: 0 0 4px #aaa;
         -webkit-box-shadow: 0 0 4px #aaa;
         box-shadow: 0 0 4px #aaa; 
-        /* Change opacity for transition */
-        opacity: 1;
         }
-/* The tooltip pointer */ 
-.fd-slider-focused .fd-slider-handle:after,
-.fd-slider-hover   .fd-slider-handle:after,
-.fd-slider-active  .fd-slider-handle:after
+.fd-slider-handle:after
         {
         outline:none;
         content:"";  
         display:block;        
         position:absolute;
-        top:-9px;
+        top:-14px;
         left:50%;
         margin:0 0 0 -5px;
         background:#222;
@@ -102,7 +92,20 @@
         box-shadow: 0 0 4px #aaa;
         /* Clip */
         clip:rect(4px, 14px, 14px, 4px); 
-        /* Change opacity for transition */        
+        }
+/* Change opacity and position to kick in the transitions */ 
+.fd-slider-focused .fd-slider-handle:before,
+.fd-slider-hover   .fd-slider-handle:before,
+.fd-slider-active  .fd-slider-handle:before
+        {
+        top:-25px;     
+        opacity:1;             
+        }
+.fd-slider-focused .fd-slider-handle:after,
+.fd-slider-hover   .fd-slider-handle:after,
+.fd-slider-active  .fd-slider-handle:after
+        {
+        top:-9px;     
         opacity:1;             
         }
 /* Remove completely for IE */
