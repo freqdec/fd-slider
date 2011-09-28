@@ -39,12 +39,12 @@ iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFn
    - All browsers except IE6 and IE7 get one regular base 64 encoded image sprite.
    - The drag handle is only 20px in width & height and not suitable for touch screen devices. You will have to change the image etc if targeting a touch screen. 44px is the Apple norm.
    - It's painless to BASE 64 your own image, use an online encoder. http://www.google.com/search?q=base+64+encoder - the only problem is that IE needs each frame of the handle sprite to be encoded individually.
-   - Remember to find and replace all occurences of ";-)" with an absolute path to this file on your server (no trailing slash required)                 
+   - Remember to find and replace all occurences of "the_absolute_path_to_this_file" with an absolute path to this file on your server (no trailing slash required)                 
      e.g. if your file is positioned at
      
      http://www.mysite.com/css/fd-slider.css
      
-     Then you would run a find/replace, replacing ;-) (semi-colon, minus sign and rounded right bracket) by
+     Then you would run a find/replace, replacing the_absolute_path_to_this_file by
      
      http://www.mysite.com/css
      
@@ -343,7 +343,7 @@ iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFn
         Renders the regular base64 encoded image above but does not render the filter below
         
         */
-        *filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='mhtml:;-)/fd-slider.css!handlenormal');        
+        *filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='mhtml:the_absolute_path_to_this_file/fd-slider.css!handlenormal');        
         /* 
         
         IE6, IE7 and IE8
@@ -401,7 +401,7 @@ a.fd-slider-handle:focus::-moz-focus-inner
         filter below
         
         */
-        *filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='mhtml:;-)/fd-slider.css!handleglow');
+        *filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='mhtml:the_absolute_path_to_this_file/fd-slider.css!handleglow');
         }
 /* The slider is given this class whenever no value has been set by the user.
    Opacity & png images won't work in IE though so the .oldie class is used to 
@@ -439,7 +439,7 @@ a.fd-slider-handle:focus::-moz-focus-inner
         Renders the regular base64 encoded image above but does not render the filter below
         
         */
-        *filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='mhtml:;-)/fd-slider.css!handleglow');
+        *filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='mhtml:the_absolute_path_to_this_file/fd-slider.css!handleglow');
         }
 .oldie .fd-slider,
 .oldie .fd-slider-vertical
@@ -466,7 +466,7 @@ a.fd-slider-handle:focus::-moz-focus-inner
         we keep the following rule from being noticed by using the star hack
                 
         */             
-        *background:transparent url(mhtml:;-)/fd-slider.css!handleglow) repeat;        
+        *background:transparent url(mhtml:the_absolute_path_to_this_file/fd-slider.css!blank) repeat;        
         }
 /* Drop shadow on the inner bar when focused - IE gets a "Blur" filter on an inner SPAN instead */
 .fd-slider-focused .fd-slider-bar
@@ -537,7 +537,7 @@ a.fd-slider-handle:focus::-moz-focus-inner
         but not the MHTML base 64 encoded image below (as it suddenly appears to forget what MHTML is)
                    
         */
-        *filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='mhtml:;-)/fd-slider.css!handledisabled');
+        *filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='mhtml:the_absolute_path_to_this_file/fd-slider.css!handledisabled');
         }
 /* Disable the track bar */
 .fd-slider-disabled .fd-slider-bar
