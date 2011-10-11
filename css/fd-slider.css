@@ -33,6 +33,7 @@ iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFn
    Quick notes:
 
    - This file is heavily commented, run it through a CSS minifier before putting into production but don't remove the MHTML comment at the start. http://www.google.com/search?q=css+minifier
+   - The file requires CRLF (Windows) line endings in order for the MHTML images to work
    - The script automagically adds the classname "oldie" to IE 6, 7 & 8
    - A combination of the .oldie class and "safe css hacks" are used to target specific IE versions. See http://mathiasbynens.be/notes/safe-css-hacks
    - MSHTML has been used to BASE 64 encode the various png images used for the drag handle states in IE6 and IE7. See http://www.phpied.com/the-proper-mhtml-syntax/
