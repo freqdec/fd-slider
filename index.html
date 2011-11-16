@@ -150,13 +150,36 @@
         animation:"jump"
         });
       </script>
-      <p>The following slider has the &#8220;forceValue&#8221; parameter set to TRUE, which forces the associated text input to show a valid value.</p>
+      <p>The following slider has the &#8220;forceValue&#8221; parameter set to TRUE, which forces the associated text input to show a valid value. Two callback functions have been defined for the <code>create</code> and <code>change</code> slider events. The <code>create</code> callback (fired once whenever the slider has been created) injects a span into the DOM and hides the associated input, while the <code>change</code> callback simply updates this <code>span</code> with the current slider value.</p>
       <label for="inputTest6" id="inputTest6Label">Range: 5 to 15 in steps of 0.2</label>
       <p>
         <!-- Here's the form element we will associate the third slider with. -->
         <input name="inputTest6" id="inputTest6" type="text" title="Range: 5 to 15 in steps of 0.2" value=""  maxlength="6" />
       </p>
       <script>
+      // Create our callback functions
+      
+      // createScaffold, used with the "create" event
+      function createScaffold(cbObj) {
+          // Create a span 
+          var span  = document.createElement("span");
+          // Use the input ID to create an identifiable ID for the span    
+          span.id = cbObj.elem.id + "Visu";
+          // Give it a className
+          span.className = "visu";
+          // Add it just after the input in the DOM    
+          cbObj.elem.parentNode.appendChild(span);
+          // Hide the associated input
+          cbObj.elem.style.display = "none";
+          // Update the span we just added 
+          updateValue(cbObj);          
+      }
+      // updateValue, used with the "change" event
+      function updateValue(cbObj) {
+          // Grab the span element and update its contents
+          document.getElementById(cbObj.elem.id + "Visu").innerHTML = cbObj.value;
+      }
+      // Create the slider
       fdSlider.createSlider({
         // Associate an input
         inp:document.getElementById("inputTest6"),
@@ -171,7 +194,15 @@
         // Use the "tween to click point" animation
         animation:"tween",
         // Force the associated input to have a valid value
-        forceValue:true
+        forceValue:true,
+        // Pass the two previously defined functions for the "create" & "change" 
+        // events
+        callbacks:{
+                // Pass an Array of functions - if multiple functions declared, 
+                // they will be called in sequence
+                "create":[createScaffold],
+                "change":[updateValue]
+        }
         });
       </script> 
       <p>The following slider has been associated with a <code>&lt;select&gt;</code>.</p> 
