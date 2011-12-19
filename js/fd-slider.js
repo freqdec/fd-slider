@@ -681,6 +681,8 @@ var fdSlider = (function() {
                                 addClass(outerWrapper, 'fd-slider-active');                        
                                 addClass(document.body, "fd-slider-drag-" + (vertical ? "vertical" : "horizontal"));
                                 
+                                callback("dragstart");
+                                
                         // Wrapper mousedown - initiate animation to click point
                         } else {                        
                                 locate();                                                  
@@ -759,7 +761,9 @@ var fdSlider = (function() {
                         kbEnabled   = true;                        
                         removeClass(document.body, "fd-slider-drag-" + (vertical ? "vertical" : "horizontal"));                        
                         removeClass(outerWrapper, "fd-slider-active");
-                              
+                        
+                        callback("dragend");
+                                      
                         return stopEvent(e);
                 }; 
                                    

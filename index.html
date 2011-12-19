@@ -237,7 +237,57 @@
         classNames:"v-s2"
         });
       </script>         
-    </fieldset>    
+    </fieldset> 
+    <fieldset>
+      <legend>Dynamic creation test</legend>
+      <p>Testing the dynamic creation of non-polyfill sliders.</p>
+      <div id="corral">
+        <input name="dyn-1" id="dyn-1" type="text" title="Range: 5 to 15 in steps of 0.2" value=""  maxlength="6" />
+      </div>
+      <button onclick="createNewSlider(); return false;">Create New Slider</button>
+      <script>
+// A quick & dirty function to create sliders dynamically
+function createNewSlider() {
+        var id     = "dyn-" + createNewSlider.idCnt,
+            // Check input element exists already
+            inpChk = document.getElementById(id),
+            // Create new input element if needs be
+            newInp = inpChk ? inpChk : document.createElement("input");
+            
+        createNewSlider.idCnt++;
+        
+        // Set attributes and add to DOM if needs be            
+        if(!inpChk) {
+                newInp.type             = "text";
+                newInp.id               = id;
+                newInp.name             = id;
+                newInp.maxlength        = 6;
+                
+                document.getElementById("corral").appendChild(newInp);
+        };
+        
+        // Create and associate a slider with the input element
+        fdSlider.createSlider({
+                // Associate the select list
+                inp:newInp,
+                // Use the tween animation
+                animation:"tween",
+                // Keep the form element hidden
+                hideInput:true,
+                // Set min, max and step
+                max:15,
+                min:5,
+                step:0.2
+        });        
+};
+
+createNewSlider.idCnt = 1;
+
+// Call the function immediately to convert the input element
+// already present within the HTML
+createNewSlider();      
+      </script>
+    </fieldset>      
   </form>
 </div>
 </body>
