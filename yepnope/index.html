@@ -7,7 +7,12 @@
         <meta name="description"                content="Using yepnope and Modernizer to dynamically load dependencies for the HTML5 input range polyfill script" />
         <meta http-equiv="imagetoolbar"         content="no" />     
         <link rel="stylesheet" type="text/css" media="screen, projection" href="../css/demo.css" />
-        <!-- NOTE: I'm using a bespoke build of Modernizr 2.0.6, you should go build your own... http://www.modernizr.com/download/ -->        
+        <!-- 
+        
+        NOTE: I'm using a bespoke build of Modernizr 2.5.3, you should go build 
+        your own... http://www.modernizr.com/download/ 
+        
+        -->        
         <script src="http://www.frequency-decoder.com/demo/fd-slider/js/modernizr-custom.js"></script>        
 <script>   
 // Set up the yepnope (Modernizr.load) directives... 
@@ -17,15 +22,15 @@ Modernizr.load([
     test: Modernizr.inputtypes.range,
     // If ranges are not supported, load the slider script and CSS file
     nope: [     
-      // The slider CSS file
-      'css!http://www.frequency-decoder.com/demo/fd-slider/css/fd-slider.css'       
-      // Javascript file for slider
-     ,'http://www.frequency-decoder.com/demo/fd-slider/js/fd-slider.js'     
+        // The slider CSS file
+        'http://www.frequency-decoder.com/demo/fd-slider/css/fd-slider.mhtml.min.css'       
+        // The slider JS file
+        ,'http://www.frequency-decoder.com/demo/fd-slider/js/fd-slider.js'     
     ],
     callback: function(id, testResult) {
         // If the slider file has loaded then fire the onDomReady event        
         if("fdSlider" in window && typeof (fdSlider.onDomReady) != "undefined") {
-                try { fdSlider.onDomReady(); } catch(err) {};
+            try { fdSlider.onDomReady(); } catch(err) {};
         };
     }
 }

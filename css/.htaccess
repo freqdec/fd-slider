@@ -1,0 +1,6 @@
+# This is an example .htaccess file. I'm not saying that you should use it! It's
+# included in the download as an example for people who may not be old hands at
+# dealing with htaccess directives.
+
+# Add the correct mimetype for .mht files
+AddType message/rfc822 mht

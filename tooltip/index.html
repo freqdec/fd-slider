@@ -7,7 +7,7 @@
         <meta name="description"                content="An unobtrusive javascript that turns any text input or selectlist into a keyboard-accessible slider control" />
         <meta http-equiv="imagetoolbar"         content="no" />
         <link rel="stylesheet" type="text/css" media="screen, projection" href="../css/demo.css" />   
-        <link rel="stylesheet" type="text/css" media="screen, projection" href="../css/fd-slider.css" />        
+        <link rel="stylesheet" type="text/css" media="screen, projection" href="http://www.frequency-decoder.com/demo/fd-slider/css/fd-slider.mhtml.min.css" />        
         <link rel="stylesheet" type="text/css" media="screen, projection" href="../css/fd-slider-tooltip.css" />
         <script src="../js/fd-slider.js"></script>
 </head>
@@ -26,48 +26,24 @@
     <fieldset>            
       <legend>HTML5 input type="range" polyfill tooltip test</legend>
       <p>When the <code>window.onload</code> event fires, the following input elements will be automatically converted into sliders <em>only</em> if the browser does not recognise the HTML5 &#8220;range&#8221; state.</p>    
-      <!--
-      
-      Slider #1 is created automatically by the script on page load only if the browser does not support type="range".
-      The script will use the "min", "max" and "step" attributes assigned to the input to create the slider with the
-      appropriate scale.
-      
-      Slider #1: "min", "max" & "step" attributes given
-      
-      -->
       <label for="html5shim-1">Range: -10 to 10 in steps of 0.2</label>
       <p><input name="html5shim-1" id="html5shim-1" type="range" min="-10" max="10" step="0.20" title="Range: -10 to 10 in steps of 0.2" value="" /></p>     
     </fieldset>    
-    <!--
-    
-    Sliders created using the Javascript API from here on in...
-    
-    -->
     <fieldset>
       <legend>Javascript slider initialisation tooltip tests</legend>   
       <p>Testing the tooltip display with the three different forms of drag handle animation, timed, jump <span class="amp">&</span> tween and also the use of the <code>aria-valuetext</code> property. Please note, sliders have to have the forceValue parameter set to true for the aria-valuetext property to be assigned a value at all times.</p>
       <label for="inputTest3">Range: -10 to 10 in steps of 0.5</label>
       <p>
-        <!-- Here's the form element we wil associate the first slider with. -->
         <input name="inputTest3" id="inputTest3" type="text" title="Range: -10 to 10 in steps of 0.5" value=""  maxlength="6" />
       </p>
       <script>
-      // Call the fdSlider.createSlider method, passing in the required options
       fdSlider.createSlider({
-        // Associate an input
         inp:document.getElementById("inputTest3"),
-        // Declare a step (quoting the value means the precision will be calculated as 2 decimal points
-        // e.g. the "50" part of "0.50") which is a short-cut way of setting the precision without
-        // actually using the "precision" parameter
         step:"0.50", 
-        // Declare a maxStep (for keyboard users)
         maxStep:2,
-        // Min & Max values
         min:-10,
         max:10,
-        // Use the "timed increments to click point" animation
         animation:"timed",
-        // Force a value
         forceValue:true
         });
       </script> 
@@ -77,19 +53,12 @@
       </p>
       <script>
       fdSlider.createSlider({
-        // Associate an input
         inp:document.getElementById("inputTest5"),
-        // Declare a step
         step:0.2, 
-        // Declare a maxStep (for keyboard users)
         maxStep:0.4,
-        // Min value
         min:5,
-        // Max value
         max:15,
-        // Use the "jump to clickpoint" animation
         animation:"jump",
-        // Force a value
         forceValue:true
         });
       </script>
@@ -99,19 +68,12 @@
       </p>
       <script>
       fdSlider.createSlider({
-        // Associate an input
         inp:document.getElementById("inputTest6"),
-        // Declare a step
         step:0.2, 
-        // Declare a maxStep (for keyboard users)
         maxStep:0.4,
-        // Min value
         min:5,
-        // Max value
         max:15,
-        // Use the "tween to clickpoint" animation
         animation:"tween",
-        // Force a value
         forceValue:true
         });
       </script> 
@@ -130,13 +92,9 @@
       </p>
       <script>
       fdSlider.createSlider({
-        // Associate a select list
         inp:document.getElementById("selectTest1"),
-        // Use the tween animation
         animation:"tween",
-        // Keep the form element, in this case a select list, visible
         hideInput:false
-        // No "forceValue" necessary for a select list as it should always be set at a value
         });
       </script>   
     </fieldset>    
