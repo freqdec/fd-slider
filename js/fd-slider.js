@@ -471,7 +471,7 @@ var fdSlider = (function() {
                 function callback(type) {                                              
                         if(!html5Shim) {                          
                                 if(callbacks.hasOwnProperty(type)) {  
-                                        var cbObj = {"disabled":disabled, "elem":inp, "value":tagName == "select" ? inp.options[inp.selectedIndex].value : inp.value};
+                                        var cbObj = {"userSet":userSet, "disabled":disabled, "elem":inp, "value":tagName == "select" ? inp.options[inp.selectedIndex].value : inp.value};
                                                                                                         
                                         // Call all functions in sequence 
                                         for(var i = 0, func; func = callbacks[type][i]; i++) {
@@ -691,23 +691,12 @@ var fdSlider = (function() {
                         } else {                        
                                 locate();                                                  
                                 
-                                var posx        = 0,
-                                    sLft        = 0,
-                                    sTop        = 0;
-        
-                                // Internet Explorer doctype woes
-                                if(document.documentElement && document.documentElement.scrollTop) {
-                                        sTop = document.documentElement.scrollTop;
-                                        sLft = document.documentElement.scrollLeft;
-                                } else if (document.body) {
-                                        sTop = document.body.scrollTop;
-                                        sLft = document.body.scrollLeft;
-                                };
-        
-                                if(e.pageX) {
+                                var posx = 0;
+                
+                                if(e.pageX || e.pageY) {
                                         posx = vertical ? e.pageY : e.pageX;
-                                } else if (e.clientX) {
-                                        posx = vertical ? e.clientY + sTop : e.clientX + sLft;
+                                } else if (e.clientX || e.clientY) {
+                                        posx = vertical ? e.clientY + document.body.scrollTop + document.documentElement.scrollTop : e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
                                 };
                                 
                                 posx -= vertical ? y + Math.round(handle.offsetHeight / 2) : x + Math.round(handle.offsetWidth / 2);                         
@@ -806,7 +795,7 @@ var fdSlider = (function() {
                             
                         // Try catch for IE's benefit
                         try {
-                                while (obj.offsetParent) {
+                                while(obj.offsetParent) {
                                         curleft += obj.offsetLeft;
                                         curtop  += obj.offsetTop;
                                         obj      = obj.offsetParent;
