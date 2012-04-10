@@ -12,6 +12,7 @@ h2. At a glance
 * Conforms to the WAI-ARIA defined role of “slider”
 * Keyboard accessible
 * Recalculates @onresize@ so suitable for use within responsive designs
+* Available under a mixed MIT/GPL2 license
 
 h2. Quick Demos 
 
