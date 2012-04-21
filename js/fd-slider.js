@@ -163,7 +163,7 @@ var fdSlider = (function() {
                         options.precision  = options.precision && String(options.precision).search(/^[0-9]+$/) != -1 ? options.precision : (String(options.step).search(/\.([0-9]+)$/) != -1 ? String(options.step).match(/\.([0-9]+)$/)[1].length : 0);                              
                         options.scale      = options.scale || false;
                         options.forceValue = ("forceValue" in options) ? !!options.forceValue : false;
-
+                        options.userSnap   = ("userSnap" in options) ? !!options.userSnap : false;
                 };
 
                 options.ariaFormat = ("ariaFormat" in options) && typeof options.ariaFormat == "function" ? options.ariaFormat : false;                
@@ -298,6 +298,8 @@ var fdSlider = (function() {
                     forceValue  = html5Shim || !!options.forceValue,
                     inpHeight   = html5Shim && vertical && ("inpHeight" in options) ? options.inpHeight : false,                   
                     ariaFormat  = !html5Shim && options.ariaFormat ? options.ariaFormat : false,
+                    userSnap    = !html5Shim && !(tagName == "select") && ("userSnap" in options) ? !!options.userSnap : false, 
+                    userInput   = false,
                     timer       = null,
                     kbEnabled   = true,
                     initialVal  = tagName == "select" ? inp.selectedIndex : inp.value,                                    
@@ -1011,8 +1013,8 @@ var fdSlider = (function() {
                                         };
                                         inp.options[val].selected = true;                                                                             
                                 } catch (err) {};
-                        } else {                                                                                                                                                                                                                                                                                                                                   
-                                if(val != "") {
+                        } else {                                                                                                                                                                                                                                                                                                                                                                           
+                                if(val != "" && !userInput) {
                                         val = (min + (Math.round((val - min) / step) * step)).toFixed(precision);                                  
                                 };
                                 if(inp.value === val) {
@@ -1096,8 +1098,10 @@ var fdSlider = (function() {
                 
                 function onInputChange(e) {                       
                         userSet = true;
+                        userInput = userSnap;
                         valueToPixels(tagName == "input" ? parseFloat(inp.value) : inp.selectedIndex);
-                        updateAriaValues();                                                 
+                        updateAriaValues();
+                        userInput = false;                                                 
                 };                  
                 
                 function onReset(e) {
