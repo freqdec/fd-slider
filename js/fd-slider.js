@@ -1290,7 +1290,7 @@ var fdSlider = (function() {
                 stepUp:                 function(id, n) { if(!sliderExists(id)) { return false; }; sliders[id].stepUp(Math.abs(n)||1); },
                 stepDown:               function(id, n) { if(!sliderExists(id)) { return false; }; sliders[id].stepDown(-Math.abs(n)||-1); },
                 setRange:               function(id, newMin, newMax) { if(!sliderExists(id)) { return false; }; sliders[id].setRange(newMin, newMax); },
-                updateSlider:           function(id) { if(!sliderExists(id)) { return false; }; sliders[id].reset(); },        
+                updateSlider:           function(id) { if(!sliderExists(id)) { return false; }; sliders[id].onResize(); sliders[id].reset(); },        
                 disable:                function(id) { if(!sliderExists(id)) { return false; }; sliders[id].disable(); }, 
                 enable:                 function(id) { if(!sliderExists(id)) { return false; }; sliders[id].enable(); },
                 getValueSet:            function() { return getValueSet(); },
