@@ -171,6 +171,8 @@ var fdSlider = (function() {
                 options.classNames = options.classNames || "";
                 options.callbacks  = options.callbacks || false;
                 
+                options.alwaysShowTooltips = ("alwaysShowTooltips" in options) ? !!options.alwaysShowTooltips : false;
+
                 destroySingleSlider(options.inp.id);
                 sliders[options.inp.id] = new fdRange(options);
                 return true;
@@ -229,7 +231,9 @@ var fdSlider = (function() {
                                 options.max             = getAttribute(inp, "max") || 100;
                                 options.step            = getAttribute(inp, "step").search(/^any$/i) != -1 ? options.max - options.min : getAttribute(inp, "step").search(stepRegExp) != -1 ? inp.getAttribute("step") : 1;
                                 options.precision       = String(options.step).search(/\.([0-9]+)$/) != -1 ? String(options.step).match(/\.([0-9]+)$/)[1].length : 0;        
-                                options.maxStep         = options.step * 2; 
+                                options.maxStep         = options.step * 2;
+
+                                options.alwaysShowTooltips = ("alwaysShowTooltips" in options) ? !!options.alwaysShowTooltips : false;
                                                                                        
                                 destroySingleSlider(options.inp.id);
                                 sliders[options.inp.id] = new fdRange(options);              
@@ -292,7 +296,8 @@ var fdSlider = (function() {
                     vertical    = !!options.vertical,
                     callbacks   = options.callbacks || {},
                     classNames  = options.classNames || "",                    
-                    html5Shim   = !!options.html5Shim,                  
+                    html5Shim   = !!options.html5Shim,
+                    alwaysShowTooltips = !!options.alwaysShowTooltips,
                     defaultVal  = max < min ? min : min + ((max - min) / 2),
                     resetDef    = tagName == "select" ? inp.selectedIndex : inp.defaultValue || defaultVal, 
                     forceValue  = html5Shim || !!options.forceValue,
@@ -368,9 +373,14 @@ var fdSlider = (function() {
                                 } else {
                                         removeEvent(handle, "keypress",  onKeyDown);
                                 };                                            
-                                
-                                removeEvent(outerWrapper, "mouseover",  onMouseOver);
-                                removeEvent(outerWrapper, "mouseout",   onMouseOut);
+                               
+                                if (!alwaysShowTooltips) {
+                                    removeEvent(outerWrapper, "mouseover",  onMouseOver);
+                                    removeEvent(outerWrapper, "mouseout",   onMouseOut);
+                                } else {
+                                    removeClass(innerWrapper, "fd-slider-hover");
+                                }
+
                                 removeEvent(outerWrapper, "mousedown",  onMouseDown);
                                 removeEvent(outerWrapper, "touchstart", onMouseDown);
                                                         
@@ -414,9 +424,14 @@ var fdSlider = (function() {
                                                 
                         addEvent(outerWrapper, "touchstart", onMouseDown);
                         addEvent(outerWrapper, "mousedown",  onMouseDown); 
-                        addEvent(outerWrapper, "mouseover",  onMouseOver);
-                        addEvent(outerWrapper, "mouseout",   onMouseOut);
-                                                                                                                                       
+                        
+                        if (!alwaysShowTooltips) {
+                            addEvent(outerWrapper, "mouseover",  onMouseOver);
+                            addEvent(outerWrapper, "mouseout",   onMouseOut);
+                        } else {
+                            addClass(innerWrapper, "fd-slider-hover");
+                        }
+
                         removeClass(innerWrapper, "fd-slider-disabled");
                         outerWrapper.setAttribute("aria-disabled", false);                         
                         inp.disabled = disabled = touchEvents = false;                          
