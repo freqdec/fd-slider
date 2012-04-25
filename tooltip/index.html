@@ -46,7 +46,22 @@
         animation:"timed",
         forceValue:true
         });
-      </script> 
+      </script>
+      <label for="inputTest4">Range: 2012 to 1983 in steps of 1</label>
+      <p>
+        <input name="inputTest4" id="inputTest4" type="text" title="Range: 2012 to 1983 in steps of 1" value=""  maxlength="6" style="display:none;" />
+      </p>
+      <script>
+      fdSlider.createSlider({
+        inp:document.getElementById("inputTest4"),
+        step:"1",
+        min:2012,
+        max:1983,
+        animation:"tween",
+        forceValue:true,
+        alwaysShowTooltips: true
+        });
+      </script>
       <label for="inputTest5">Range: 5 to 15 in steps of 0.2</label>
       <p>
         <input name="inputTest5" id="inputTest5" type="text" title="Range: 5 to 15 in steps of 0.2" value=""  maxlength="6" />
