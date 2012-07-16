@@ -463,7 +463,7 @@ var fdSlider = (function() {
                                 sliderH = sH;                                
                                 
                                 // Use the input value
-                                valueToPixels(forceValue ? getWorkingValueFromInput() : (tagName == "select" ? inp.selectedIndex : parseFloat(inp.value)));
+                                valueToPixels(forceValue ? getWorkingValueFromInput() : (tagName == "select" ? inp.selectedIndex : parseFloat(inp.value)), false);
                                 
                         } catch(err) {};
                         callback("redraw");
@@ -899,9 +899,12 @@ var fdSlider = (function() {
                 };                
                 
                 // Calculates pixel position according to form element value
-                function valueToPixels(val) { 
+                function valueToPixels(val, set_input_value) {
                         var clearVal = false,
                             value;
+                        if (typeof set_input_value === "undefined") {
+                            set_input_value = true;
+                        }
                                                             
                         // Allow empty values for non-polyfill sliders
                         if((typeof val == "undefined" || isNaN(val) || val === "") && tagName == "input" && !forceValue) {                                
@@ -914,7 +917,9 @@ var fdSlider = (function() {
                         
                         handle.style[vertical ? "top" : "left"] = (scale ? percentToPixels(valueToPercent(value)) : vertical ? Math.round(((max - value) / step) * stepPx) : Math.round(((value - min) / step) * stepPx)) + "px"; 
                         redrawRange();                          
-                        setInputValue(clearVal ? "" : value);                                                                                                                                                                       
+                        if (set_input_value) {
+                            setInputValue(clearVal ? "" : value);
+                        }
                 };
 
                 // Rounds a pixel value to the nearest "snap" point on the slider scale
