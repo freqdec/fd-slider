@@ -266,7 +266,7 @@ var fdSlider = (function() {
                 };        
         };             
         var onDomReady = function() {
-                removeEvent(window, "load",   init);
+                removeOnLoadEvent();
                 init();
         };    
         var removeOnLoadEvent = function() {                      
@@ -463,7 +463,7 @@ var fdSlider = (function() {
                                 sliderH = sH;                                
                                 
                                 // Use the input value
-                                valueToPixels(forceValue ? getWorkingValueFromInput() : (tagName == "select" ? inp.selectedIndex : parseFloat(inp.value)));
+                                valueToPixels(forceValue ? getWorkingValueFromInput() : (tagName == "select" ? inp.selectedIndex : parseFloat(inp.value)), false);
                                 
                         } catch(err) {};
                         callback("redraw");
@@ -563,7 +563,7 @@ var fdSlider = (function() {
                                 valueToPixels(getValidValue(value));                        
                         };
                         
-                        return stopEvent(e);
+                        preventDefault(e);
                 };                  
                 
                 // KEYBOARD events
@@ -721,7 +721,7 @@ var fdSlider = (function() {
                                 };                                                                                   
                         };
 
-                        return stopEvent(e);                                                      
+                        return false;                                                      
                 };
                 
                 // Progressive increment to click point - clear the animation timer and remove the mouseup/touchend event
@@ -736,7 +736,7 @@ var fdSlider = (function() {
                         timer     = null;
                         kbEnabled = true;                             
                 
-                        return stopEvent(e);
+                        return false;
                 }; 
                 
                 // Mouseup or touchend event on the document to stop drag
@@ -759,7 +759,7 @@ var fdSlider = (function() {
                         
                         callback("dragend");
                                       
-                        return stopEvent(e);
+                        return false;
                 }; 
                                    
                 // Mousemove or touchmove event on the drag handle
@@ -899,12 +899,12 @@ var fdSlider = (function() {
                 };                
                 
                 // Calculates pixel position according to form element value
-                function valueToPixels(val) { 
+                function valueToPixels(val, updateInputValue) { 
                         var clearVal = false,
                             value;
                                                             
                         // Allow empty values for non-polyfill sliders
-                        if((typeof val == "undefined" || isNaN(val) || val === "") && tagName == "input" && !forceValue) {                                
+                        if((typeof val === "undefined" || isNaN(val) || val === "") && tagName == "input" && !forceValue) {                                
                                 value    = defaultVal;
                                 clearVal = true;
                                 userSet  = false;    
@@ -914,7 +914,9 @@ var fdSlider = (function() {
                         
                         handle.style[vertical ? "top" : "left"] = (scale ? percentToPixels(valueToPercent(value)) : vertical ? Math.round(((max - value) / step) * stepPx) : Math.round(((value - min) / step) * stepPx)) + "px"; 
                         redrawRange();                          
-                        setInputValue(clearVal ? "" : value);                                                                                                                                                                       
+                        if(!(typeof updateInputValue === false)) {
+                            setInputValue(clearVal ? "" : value);
+                        };                                                                                                                                                                       
                 };
 
                 // Rounds a pixel value to the nearest "snap" point on the slider scale
@@ -1281,7 +1283,8 @@ var fdSlider = (function() {
         @end 
         @*/
                         
-        return {                                           
+        return { 
+                rescanDocument:         init,                                          
                 createSlider:           function(opts) { return createSlider(opts); },                    
                 onDomReady:             function() { onDomReady(); },
                 destroyAll:             function() { destroyAllsliders(); },
