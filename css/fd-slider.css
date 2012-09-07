@@ -295,9 +295,7 @@
         background-image:     -ms-linear-gradient(top, #ececec, #ccc); 
         background-image:      -o-linear-gradient(top, #ececec, #ccc); 
         background-image:         linear-gradient(to bottom, #ececec, #ccc);
-        -webkit-border-radius:2px;
-           -moz-border-radius:2px; 
-                border-radius:2px;
+        border-radius:2px;
         -webkit-background-clip: padding-box; 
            -moz-background-clip: padding; 
                 background-clip: padding-box;
@@ -359,9 +357,7 @@
 */
 .fd-slider-focused .fd-slider-bar
         {
-        -webkit-box-shadow: 0 0 6px rgba(10, 130, 170, 0.7);
-           -moz-box-shadow: 0 0 6px rgba(10, 130, 170, 0.7);
-                box-shadow: 0 0 6px rgba(10, 130, 170, 0.7);        
+        box-shadow: 0 0 6px rgba(10, 130, 170, 0.7);
         -webkit-animation:fd-pulse 2s infinite;
            -moz-animation:fd-pulse 2s infinite;
             -ms-animation:fd-pulse 2s infinite;
@@ -390,9 +386,7 @@
         background-image:     -ms-linear-gradient(left, #6cc, #3cf); 
         background-image:      -o-linear-gradient(left, #6cc, #3cf); 
         background-image:         linear-gradient(to right, #6cc, #3cf);
-        -webkit-border-radius:2px;
-           -moz-border-radius:2px;
-                border-radius:2px;
+        border-radius:2px;
         -webkit-background-clip: padding-box; 
            -moz-background-clip: padding; 
                 background-clip: padding-box;
@@ -731,11 +725,10 @@ body.fd-slider-drag-vertical *
         {
         cursor:N-resize !important;
         -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        -o-user-select: none;
-        user-select: none;
+           -moz-user-select: none;
+            -ms-user-select: none;
+             -o-user-select: none;
+                user-select: none;
         }
 /*
         Element: document.body
