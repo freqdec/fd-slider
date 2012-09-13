@@ -213,7 +213,7 @@ var fdSlider = (function() {
                                         inp:            inp,                                                               
                                         callbacks:      [],                                         
                                         animation:      html5Animation,                                        
-                                        vertical:       getAttribute(inp, "data-fd-slider-vertical") ? true : !!(inp.offsetHeight > inp.offsetWidth),
+                                        vertical:       getAttribute(inp, "data-fd-slider-vertical") ? true : (inp.offsetHeight > inp.offsetWidth),
                                         classNames:     getAttribute(inp, "data-fd-slider-vertical"),
                                         html5Shim:      true
                                 };
