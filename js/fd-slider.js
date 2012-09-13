@@ -580,7 +580,7 @@ var fdSlider = (function() {
                         }
 
                         e = e || window.event;
-                        var kc = e.keyCode != null ? e.keyCode : e.charCode,
+                        var kc = e.keyCode !== null ? e.keyCode : e.charCode,
                             value;
                         
                         if(kc < 33 || (kc > 40 && (kc != 45 && kc != 46))) {
