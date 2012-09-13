@@ -939,18 +939,18 @@ var fdSlider = (function() {
                 
                 // Calculates a value according to percentage of distance handle has travelled
                 function percentToValue(pct) {
-    	                var st = 0, 
+                        var st = 0,
                             fr = min,
                             value;
 
                         for(var s in scale) {                                 
-    	                        if(!scale.hasOwnProperty(s)) {
+                                if(!scale.hasOwnProperty(s)) {
                                         continue;
                                 }
                                 
                                 if(pct >= st && pct <= +s ) {
                                         value = fr + ((pct - st) * (+scale[s] - fr) ) / (+s - st);
-    	                        }
+                                }
 
                                 st = +s;
                                 fr = +scale[s];
@@ -960,7 +960,7 @@ var fdSlider = (function() {
                 }
                 
                 // Calculates the percentage handle position according to form element value
-                function valueToPercent(value) {  	  
+                function valueToPercent(value) {
                         var st  = 0, 
                             fr  = min, 
                             pct = 0;
@@ -1048,11 +1048,11 @@ var fdSlider = (function() {
                         } else if(defaultVal > Math.max(rMin, rMax)) {
                                 defaultVal = Math.max(rMin, rMax);
                         }                        
-                			
+                        
                         handle.setAttribute("aria-valuemin",  rMin);
                         handle.setAttribute("aria-valuemax",  rMax);
-			                      
-                        checkValue(tagName == "input" ? parseFloat(inp.value) : inp.selectedIndex);                        		
+                                  
+                        checkValue(tagName == "input" ? parseFloat(inp.value) : inp.selectedIndex);
                         redraw();
                 }
                 
