@@ -476,14 +476,15 @@ var fdSlider = (function() {
                                                 func.call(inp, cbObj);
                                         }                                       
                                 } 
-                        } else if(type.match(/^(blur|focus|change)$/i)) {                                                                       
+                        } else if(type.match(/^(blur|focus|change)$/i)) {
+                                var e;
                                 if(typeof(document.createEventObject) != 'undefined') {
                                         try {
-                                                var e = document.createEventObject();
+                                                e = document.createEventObject();
                                                 inp.fireEvent('on' + type.toLowerCase(), e);
                                         } catch(err){ }
                                 } else if(typeof(document.createEvent) != 'undefined') {
-                                        var e = document.createEvent('HTMLEvents');                                        
+                                        e = document.createEvent('HTMLEvents');                                        
                                         e.initEvent(type, true, true);
                                         inp.dispatchEvent(e);
                                 }                                                        
