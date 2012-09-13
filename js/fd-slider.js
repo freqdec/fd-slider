@@ -17,7 +17,7 @@ var fdSlider = (function() {
             stepRegExp        = /^([0-9]+(\.[0-9]+){0,1})$/;
             
         var parseJSON = function(str) {
-                if(typeof str !== "string" || str == "") { 
+                if(typeof str !== "string" || str === "") { 
                         return {}; 
                 }                 
                 try {
@@ -1014,7 +1014,7 @@ var fdSlider = (function() {
                                         inp.options[val].selected = true;                                                                             
                                 } catch (err) {}
                         } else {                                                                                                                                                                                                                                                                                                                                                                           
-                                if(val != "" && !userInput) {
+                                if(val !== "" && !userInput) {
                                         val = (min + (Math.round((val - min) / step) * step)).toFixed(precision);                                  
                                 }
                                 if(inp.value === val) {
