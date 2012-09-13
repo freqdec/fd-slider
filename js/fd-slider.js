@@ -12,7 +12,7 @@ var fdSlider = (function() {
             noRangeBar        = false,           
             html5Animation    = "jump",               
             isOpera           = Object.prototype.toString.call(window.opera) === "[object Opera]",
-            fpRegExp          = /^([-]{0,1}[0-9]+(\.[0-9]+){0,1})$/,
+            fpRegExp          = /^([\-]{0,1}[0-9]+(\.[0-9]+){0,1})$/,
             stepRegExp        = /^([0-9]+(\.[0-9]+){0,1})$/;
             
         var parseJSON = function(str) {
