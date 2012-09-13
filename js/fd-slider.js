@@ -1,4 +1,5 @@
 /*! Unobtrusive Slider Control / HTML5 Input Range polyfill - MIT/GPL2 @freqdec */
+/*jshint sub:true */
 var fdSlider = (function() {
         var sliders           = {},     
             uniqueid          = 0,
