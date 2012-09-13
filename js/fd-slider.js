@@ -39,7 +39,7 @@ var fdSlider = (function() {
                 if(typeof json !== "object") { 
                         return; 
                 }
-                for(key in json) {
+                for(var key in json) {
                         value = json[key];                                                                
                         switch(key.toLowerCase()) { 
                                 case "mousewheelenabled":
@@ -121,7 +121,7 @@ var fdSlider = (function() {
         // that have been "set" by the user. Normally used within form validation code
         var getValueSet = function() {
                 var obj = {};
-                for(id in sliders) {
+                for(var id in sliders) {
                         obj[id] = sliders[id].getValueSet();
                 }
                 return obj;
@@ -243,7 +243,7 @@ var fdSlider = (function() {
                 return false;
         };
         var destroyAllsliders = function(e) {
-                for(slider in sliders) { 
+                for(var slider in sliders) { 
                         if(sliders.hasOwnProperty(slider)) {
                                 sliders[slider].destroy();
                         } 
@@ -255,7 +255,7 @@ var fdSlider = (function() {
                 sliders = null;                         
         };                  
         var resize = function(e) {
-                for(slider in sliders) { 
+                for(var slider in sliders) { 
                         if(sliders.hasOwnProperty(slider)) {
                                 sliders[slider].onResize();
                         } 
