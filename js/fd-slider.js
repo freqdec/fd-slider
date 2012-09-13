@@ -913,7 +913,7 @@ var fdSlider = (function() {
                         
                         handle.style[vertical ? "top" : "left"] = (scale ? percentToPixels(valueToPercent(value)) : vertical ? Math.round(((max - value) / step) * stepPx) : Math.round(((value - min) / step) * stepPx)) + "px"; 
                         redrawRange();                          
-                        if(!(typeof updateInputValue === false)) {
+                        if(typeof updateInputValue !== false) {
                             setInputValue(clearVal ? "" : value);
                         }                                                                                                                                                                       
                 }
