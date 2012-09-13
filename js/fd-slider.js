@@ -187,14 +187,10 @@ var fdSlider = (function() {
                     
                 for(var i = 0, inp; inp = inputs[i]; i++) {                         
                                              
-                        if(inp.tagName.toLowerCase() == "input" 
-                           && 
-                           inp.type.toLowerCase() == "text" 
-                           && 
-                           (getAttribute(inp, "min") && getAttribute(inp, "min").search(fpRegExp) != -1 
-                            || 
-                            getAttribute(inp, "max") && getAttribute(inp, "max").search(fpRegExp) != -1
-                            || 
+                        if(inp.tagName.toLowerCase() == "input" && 
+                           inp.type.toLowerCase() == "text" && 
+                           (getAttribute(inp, "min") && getAttribute(inp, "min").search(fpRegExp) != -1 || 
+                            getAttribute(inp, "max") && getAttribute(inp, "max").search(fpRegExp) != -1 || 
                             getAttribute(inp, "step") && getAttribute(inp, "step").search(/^(any|([0-9]+(\.[0-9]+){0,1}))$/i) != -1
                            )) {
                            
