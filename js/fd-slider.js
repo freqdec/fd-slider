@@ -1203,13 +1203,12 @@ var fdSlider = (function() {
                         if(lbl) {
                                 handle.setAttribute("aria-labelledby", lbl.id);
                                 handle.id = "fd-slider-handle-" + inp.id;
-                                /*@cc_on
+                                /*@cc_on*/
                                 /*@if(@_win32)
                                 lbl.setAttribute("htmlFor", handle.id);
                                 @else @*/
                                 lbl.setAttribute("for", handle.id);
-                                /*@end
-                                @*/
+                                /*@end@*/
                         }
 
                         // Are there page instructions
@@ -1274,11 +1273,10 @@ var fdSlider = (function() {
         })();
 
         // Add oldie class if needed for IE < 9
-        /*@cc_on
-        @if (@_jscript_version < 9)
+        /*@cc_on*/
+        /*@if (@_jscript_version < 9)
         addClass(document.documentElement, "oldie");
-        @end
-        @*/
+        @end@*/
 
         return {
                 rescanDocument:         init,
