@@ -1,5 +1,5 @@
 /*! Unobtrusive Slider Control / HTML5 Input Range polyfill - MIT/GPL2 @freqdec */
-/*jshint sub:true, evil:true */
+/*jshint sub:true, evil:true, boss:true */
 var fdSlider = (function() {
         var sliders           = {},
             uniqueid          = 0,
@@ -186,8 +186,7 @@ var fdSlider = (function() {
                 var inputs = document.getElementsByTagName("input"),
                     options;
 
-                for(var i = 0, inp; i < inputs.length; i++) {
-                        inp = inputs[i];
+                for(var i = 0, inp; inp = inputs[i]; i++) {
                         if(inp.tagName.toLowerCase() == "input" &&
                            inp.type.toLowerCase() == "text" &&
                            (getAttribute(inp, "min") && getAttribute(inp, "min").search(fpRegExp) != -1 ||
@@ -473,8 +472,7 @@ var fdSlider = (function() {
                                         var cbObj = {"userSet":userSet, "disabled":disabled, "elem":inp, "value":tagName == "select" ? inp.options[inp.selectedIndex].value : inp.value};
 
                                         // Call all functions in sequence
-                                        for(var i = 0, func; callbacks[type].length; i++) {
-                                                func = callbacks[type][i];
+                                        for(var i = 0, func; func = callbacks[type][i]; i++) {
                                                 func.call(inp, cbObj);
                                         }
                                 }
@@ -1074,8 +1072,7 @@ var fdSlider = (function() {
                         var label = false,
                             labelList = document.getElementsByTagName('label');
                         // loop through label array attempting to match each 'for' attribute to the id of the current element
-                        for(var i = 0, lbl; i < labelList.length; i++) {
-                                lbl = labelList[i];
+                        for(var i = 0, lbl; lbl = labelList[i]; i++) {
                                 // Internet Explorer requires the htmlFor test
                                 if((lbl['htmlFor'] && lbl['htmlFor'] == inp.id) || (lbl.getAttribute('for') == inp.id)) {
                                         label = lbl;
