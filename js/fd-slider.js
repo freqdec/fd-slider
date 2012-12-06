@@ -465,13 +465,11 @@ var fdSlider = (function() {
             } else if(type.match(/^(blur|focus|change)$/i)) {
                 var e;
                 if(typeof(document.createEvent) != 'undefined') {
-                    console.log("trying 1");
                     e = document.createEvent('HTMLEvents');
                     e.initEvent(type, true, true);
                     inp.dispatchEvent(e);
                 } else if(typeof(document.createEventObject) != 'undefined') {
                     try {
-console.log("trying 2");
                         e = document.createEventObject();
                         inp.fireEvent('on' + type.toLowerCase(), e);
                     } catch(err){ }
