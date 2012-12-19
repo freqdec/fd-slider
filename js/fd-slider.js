@@ -1093,6 +1093,9 @@ var fdSlider = (function() {
             min = parseFloat(getAttribute(inp, "min"));
             max = parseFloat(getAttribute(inp, "max")); 
             
+            rMin = parseFloat(getAttribute(inp, "min"));
+            rMax = parseFloat(getAttribute(inp, "max")); 
+            
             range = Math.abs(max - min);            
             steps = Math.ceil( range / step);
             
