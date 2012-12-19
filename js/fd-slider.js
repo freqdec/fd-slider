@@ -1088,6 +1088,17 @@ var fdSlider = (function() {
             userInput = false;
         }
 
+        function onInputAttributesChange(e){                         
+            step = parseFloat(getAttribute(inp, "step"));
+            min = parseFloat(getAttribute(inp, "min"));
+            max = parseFloat(getAttribute(inp, "max")); 
+            
+            range = Math.abs(max - min);            
+            steps = Math.ceil( range / step);
+            
+            redraw();
+        }
+
         function onReset(e) {
             if(tagName == "input") {
                 inp.value = inp.defaultValue;
@@ -1115,6 +1126,8 @@ var fdSlider = (function() {
             } else {
                 addEvent(inp, 'change', onInputChange);
             }
+
+            addEvent(inp, "DOMAttrModified", onInputAttributesChange);
 
             // Add stepUp & stepDown methods to input element if using the html5Shim
             if(html5Shim) {
