@@ -139,8 +139,6 @@ var fdSlider = (function() {
     var createSlider = function(options) {
         if(!options || !options.inp || !options.inp.tagName || options.inp.tagName.search(/^input|select/i) == -1) { return false; }
 
-        options.html5Shim = false;
-
         if(options.inp.tagName.toLowerCase() == "select") {
             if(options.inp.options.length < 2) {
                 return false;
