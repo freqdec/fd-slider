@@ -782,7 +782,6 @@ var fdSlider = (function() {
                 do {
                     curleft += obj.offsetLeft;
                     curtop  += obj.offsetTop;
-                    obj      = obj.offsetParent;
                 } while(obj = obj.offsetParent);
             } catch(err) {}
             x = curleft;
