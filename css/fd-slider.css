@@ -360,8 +360,8 @@
         box-shadow: 0 0 6px rgba(10, 130, 170, 0.7);
         -webkit-animation:fd-pulse 2s infinite;
            -moz-animation:fd-pulse 2s infinite;
-            -ms-animation:fd-pulse 2s infinite;
-             -o-animation:fd-pulse 2s infinite;           
+             -o-animation:fd-pulse 2s infinite;
+                animation:fd-pulse 2s infinite;
         } 
 /*
         Element: Inner animated range bar 
@@ -962,7 +962,7 @@ body.fd-slider-drag-horizontal *
         box-shadow:0 0 4px rgba(70, 130, 170, 0.6);
         }
 }
-@-ms-keyframes fd-pulse {
+@-o-keyframes fd-pulse {
 0%      {
         box-shadow:0 0 3px rgba(100, 130, 170, 0.55);
         }
@@ -982,7 +982,7 @@ body.fd-slider-drag-horizontal *
         box-shadow:0 0 4px rgba(70, 130, 170, 0.6);
         }
 }
-@-o-keyframes fd-pulse {
+@keyframes fd-pulse {
 0%      {
         box-shadow:0 0 3px rgba(100, 130, 170, 0.55);
         }
