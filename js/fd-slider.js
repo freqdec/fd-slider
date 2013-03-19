@@ -12,6 +12,7 @@ var fdSlider = (function() {
         },
         noRangeBar        = false,
         html5Animation    = "jump",
+        useDOMAttrModEvt  = false,
         isOpera           = Object.prototype.toString.call(window.opera) === "[object Opera]",
         fpRegExp          = /^([\-]{0,1}[0-9]+(\.[0-9]+){0,1})$/,
         stepRegExp        = /^([0-9]+(\.[0-9]+){0,1})$/;
@@ -57,6 +58,9 @@ var fdSlider = (function() {
                     break;
                 case "html5animation":
                     html5Animation = String(value).search(/^(jump|tween|timed)$/i) != -1 ? String(value).toLowerCase() : "jump";
+                    break;
+                case "watchattributes":
+                    useDOMAttrModEvt = !!value;
                     break;
                 case "varsetrules":
                     if("onfocus" in value) {
@@ -178,7 +182,8 @@ var fdSlider = (function() {
     // HTML5 input type="range" shim - called onload or onDomReady
     var init = function() {
         var inputs = document.getElementsByTagName("input"),
-            options;
+            options,
+            defs;
 
         for(var i = 0, inp; inp = inputs[i]; i++) {
 
@@ -216,9 +221,11 @@ var fdSlider = (function() {
                     options.inpHeight = inp.offsetHeight;
                 }
 
-                options.min             = getAttribute(inp, "min") || 0;
-                options.max             = getAttribute(inp, "max") || 100;
-                options.step            = getAttribute(inp, "step").search(/^any$/i) != -1 ? options.max - options.min : getAttribute(inp, "step").search(stepRegExp) != -1 ? inp.getAttribute("step") : 1;
+                defs = getInputAttributes(inp);
+                
+                options.min             = defs.min;
+                options.max             = defs.max;
+                options.step            = defs.step;
                 options.precision       = String(options.step).search(/\.([0-9]+)$/) != -1 ? String(options.step).match(/\.([0-9]+)$/)[1].length : 0;
                 options.maxStep         = options.step * 2;
 
@@ -228,6 +235,13 @@ var fdSlider = (function() {
         }
 
         return true;
+    };
+    var getInputAttributes = function(inp) {
+        return {
+            "min":+(getAttribute(inp, "min") || 0),
+            "max":+(getAttribute(inp, "max") || 100),
+            "step":+(getAttribute(inp, "step").search(stepRegExp) != -1 ? inp.getAttribute("step") : 1)
+        };
     };
     var destroySingleSlider = function(id) {
         if(id in sliders && sliders.hasOwnProperty(id)) {
@@ -253,6 +267,13 @@ var fdSlider = (function() {
         for(var slider in sliders) {
             if(sliders.hasOwnProperty(slider)) {
                 sliders[slider].onResize();
+            }
+        }
+    };
+    var rescanAttributes = function() {
+        for(var slider in sliders) {
+            if(sliders.hasOwnProperty(slider)) {
+                sliders[slider].rescan();
             }
         }
     };
@@ -342,6 +363,29 @@ var fdSlider = (function() {
             }
         }
 
+        function rescanAttrs() {
+            if(!useDOMAttrModEvt || tagName == "select") {
+                return;
+            }
+            
+            var defs = getInputAttributes(inp);
+
+            if(defs.min == min && defs.max == max && defs.step == step) {
+                return;
+            }
+            
+            min         = +defs.min;
+            max         = +defs.max;
+            rMin        = min;
+            rMax        = max;
+            step        = +defs.step;
+            range       = Math.abs(max - min);
+            maxStep     = step * 2;
+            steps       = Math.ceil(range / step);
+            userSet     = false;
+            setSliderRange(min, max);
+        }
+        
         function disableSlider(noCallback) {
             if(disabled && !noCallback) {
                 return;
@@ -998,7 +1042,8 @@ var fdSlider = (function() {
                 } catch (err) {}
             } else {
                 if(val !== "" && !userInput) {
-                    val = (min + (Math.round((val - min) / step) * step)).toFixed(precision);
+                console.log("val:" + val + ", min:" + min + ", max:" + max + ", step:" + step);
+                    val = (min + (Math.round((+val - min) / step) * step)).toFixed(precision);
                 }
                 if(inp.value === val) {
                     updateAriaValues();
@@ -1117,8 +1162,13 @@ var fdSlider = (function() {
 
             // Add stepUp & stepDown methods to input element if using the html5Shim
             if(html5Shim) {
+                inp.setAttribute("fd-range-enabled", 1);
                 inp.stepUp   = function(n) { increment(n||1); };
                 inp.stepDown = function(n) { increment(n||-1); };
+                
+                if(useDOMAttrModEvt) {
+                    addEvent(inp, typeof(inp.onpropertychange) == "object" ? "propertychange" : "DOMAttrModified", rescanAttrs);
+                }
             }
 
             outerWrapper              = document.createElement('span');
@@ -1236,6 +1286,7 @@ var fdSlider = (function() {
             setRange:       function(mi, mx) { setSliderRange(mi, mx); },
             getValueSet:    function() { return !!userSet; },
             setValueSet:    function(tf) { valueSet(tf); },
+            rescan:         function() { rescanAttrs(); },
             checkValue:     function() { if(varSetRules.onvalue) { userSet = true; checkValue(tagName == "input" ? parseFloat(inp.value) : inp.selectedIndex); } updateAriaValues(); redraw(); }
         };
     }
@@ -1248,8 +1299,7 @@ var fdSlider = (function() {
     // Have we been passed JSON within the including script tag
     (function() {
         var scriptFiles       = document.getElementsByTagName('script'),
-            scriptInner       = String(scriptFiles[scriptFiles.length - 1].innerHTML).replace(/[\n\r\s\t]+/g, " ").replace(/^\s+/, "").replace(/\s+$/, ""),
-            json              = parseJSON(scriptInner);
+            json              = parseJSON(String(scriptFiles[scriptFiles.length - 1].innerHTML).replace(/[\n\r\s\t]+/g, " ").replace(/^\s+/, "").replace(/\s+$/, ""));
 
         if(typeof json === "object" && !("err" in json)) {
             affectJSON(json);
@@ -1282,6 +1332,7 @@ var fdSlider = (function() {
         getValueSet:            function() { return getValueSet(); },
         setValueSet:            function(a, tf) { if(!sliderExists(id)) { return false; } setValueSet(a, tf); },
         setGlobalVariables:     function(json) { affectJSON(json); },
-        removeOnload:           function() { removeOnLoadEvent(); }
+        removeOnload:           function() { removeOnLoadEvent(); },
+        rescanAttributes:       rescanAttributes
     };
 })();
