@@ -76,7 +76,7 @@ var fdSlider = (function() {
     var addEvent = function(obj, type, fn) {
         if(obj.addEventListener) {
             obj.addEventListener(type, fn, true);
-        } else         if(obj.attachEvent) {
+        } else if(obj.attachEvent) {
             obj.attachEvent("on"+type, fn);
         }
     };
@@ -188,7 +188,7 @@ var fdSlider = (function() {
         for(var i = 0, inp; inp = inputs[i]; i++) {
 
             if(inp.tagName.toLowerCase() == "input" &&
-               inp.getAttribute("type").toLowerCase() == "range" &&
+               (getAttribute(inp,"type") && getAttribute(inp,"type").toLowerCase() == "range") &&
                (getAttribute(inp, "min") && getAttribute(inp, "min").search(fpRegExp) != -1 ||
                 getAttribute(inp, "max") && getAttribute(inp, "max").search(fpRegExp) != -1 ||
                 getAttribute(inp, "step") && getAttribute(inp, "step").search(/^(any|([0-9]+(\.[0-9]+){0,1}))$/i) != -1
@@ -222,7 +222,7 @@ var fdSlider = (function() {
                 }
 
                 defs = getInputAttributes(inp);
-                
+
                 options.min             = defs.min;
                 options.max             = defs.max;
                 options.step            = defs.step;
