@@ -1042,7 +1042,6 @@ var fdSlider = (function() {
                 } catch (err) {}
             } else {
                 if(val !== "" && !userInput) {
-                console.log("val:" + val + ", min:" + min + ", max:" + max + ", step:" + step);
                     val = (min + (Math.round((+val - min) / step) * step)).toFixed(precision);
                 }
                 if(inp.value === val) {
