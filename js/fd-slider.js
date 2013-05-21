@@ -248,7 +248,7 @@ var fdSlider = (function() {
             sliders[id].destroy();
             delete sliders[id];
             return true;
-        }
+        };
         return false;
     };
     var destroyAllsliders = function(e) {
@@ -1042,7 +1042,6 @@ var fdSlider = (function() {
                 } catch (err) {}
             } else {
                 if(val !== "" && !userInput) {
-                console.log("val:" + val + ", min:" + min + ", max:" + max + ", step:" + step);
                     val = (min + (Math.round((+val - min) / step) * step)).toFixed(precision);
                 }
                 if(inp.value === val) {
@@ -1143,10 +1142,6 @@ var fdSlider = (function() {
             updateAriaValues();
         }
 
-        function valueSet(tf) {
-            userSet = !!tf;
-        }
-
         // Sets a tabindex attribute on an element, bends over for IE.
         function setTabIndex(e, i) {
             e.setAttribute(!/*@cc_on!@*/false ? "tabIndex" : "tabindex", i);
@@ -1156,6 +1151,16 @@ var fdSlider = (function() {
         (function() {
             if(html5Shim || hideInput) {
                 addClass(inp, "fd-form-element-hidden");
+                try {
+                    // FF21 hack to change input type to text
+                    if(inp.type != "range"
+                       &&
+                       getAttribute(inp, "type") == "range"
+                       &&
+                       document.defaultView.getComputedStyle(inp, null).getPropertyValue("display") == "inline-block") {
+                        inp.type="number";
+                    }
+                } catch(err){};
             } else {
                 addEvent(inp, 'change', onInputChange);
             }
