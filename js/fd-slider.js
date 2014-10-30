@@ -139,6 +139,12 @@ var fdSlider = (function() {
     var sliderExists = function(slider) {
         return !!(slider in sliders && sliders.hasOwnProperty(slider));
     };
+    var setSameChange = function(sliderIds) { 
+        for (var i = 0, len = sliderIds.length; i < len; i++) {
+            if(!(sliderIds[i] in sliders)) continue;
+            sliders[sliderIds[i]].setChangeValue();
+        };                            
+    };
     // Javascript instantiation of a slider (input type="text|range" or select list)
     var createSlider = function(options) {
         if(!options || !options.inp || !options.inp.tagName || options.inp.tagName.search(/^input|select/i) == -1) { return false; }
@@ -362,6 +368,9 @@ var fdSlider = (function() {
                 valueToPixels(getWorkingValueFromInput());
             }
         }
+        function setChangeValue() {
+            valueToPixels(getWorkingValueFromInput());
+        };
 
         function rescanAttrs() {
             if(!useDOMAttrModEvt || tagName == "select") {
@@ -1338,6 +1347,7 @@ var fdSlider = (function() {
         setValueSet:            function(a, tf) { if(!sliderExists(id)) { return false; } setValueSet(a, tf); },
         setGlobalVariables:     function(json) { affectJSON(json); },
         removeOnload:           function() { removeOnLoadEvent(); },
-        rescanAttributes:       rescanAttributes
+        rescanAttributes:       rescanAttributes,
+        setSameChange:          function(a) { setSameChange(a); }
     };
 })();
